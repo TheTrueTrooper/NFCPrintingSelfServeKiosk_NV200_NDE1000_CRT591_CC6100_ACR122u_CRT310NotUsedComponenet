@@ -46,8 +46,8 @@
     <Compile Include="CRTEnums\CRT591_MessageResponseCommandHeaderStatus.cs" />
     <Compile Include="CRTEnums\CRT591_MessageResponseStatus.cs" />
     <Compile Include="CRTEnums\CRT591_CardStackStatus.cs" />
-    <Compile Include="CRTEnums\CTR591_CardStatus.cs" />
-    <Compile Include="CRTEnums\CTR591_ErrorCardBinStatus.cs" />
+    <Compile Include="CRTEnums\CRT591_CardStatus.cs" />
+    <Compile Include="CRTEnums\CRT591_ErrorCardBinStatus.cs" />
     <Compile Include="CTR591_Errors.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

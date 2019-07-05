@@ -10,6 +10,7 @@ namespace CardReader_CRT_591
     {
         StackStatus_NoCards,
         StackStatus_FewCards,
-        StackStatus_FullOfCards
+        StackStatus_FullOfCards,
+        StackStatus_Unkown
     }
 }

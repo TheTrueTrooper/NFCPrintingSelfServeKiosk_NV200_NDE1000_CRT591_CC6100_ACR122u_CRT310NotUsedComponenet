@@ -102,8 +102,18 @@ namespace CardReader_CRT_591
             /// </summary>
             const byte CHP = 0x50;
 
-            CRT591_MessageResponseStatus Status;
+            CRT591_MessageResponseStatus Status = CRT591_MessageResponseStatus.UnkownFormateAssumedNotFor;
             CRT591_MessageResponseCommandHeaderStatus CommandHeaderStatus = CRT591_MessageResponseCommandHeaderStatus.Unknown;
+            byte Command = 0x00;
+            byte Param = 0x00;
+
+            //ST0 CardStatus
+            CRT591_CardStackStatus CardStatus = CRT591_CardStackStatus.CardStatus_Unkown;
+            //ST1 CardStack 
+            CRT591_CardStackStatus StackStatus = CRT591_CardStackStatus.StackStatus_Unkown;
+            //ST2 Error bin status
+            CTR591_ErrorCardBinStatus ErrorBinStatus = CTR591_ErrorCardBinStatus.ErrorCardBinStatus_Unkown;
+
             if (Message[0] != STX)
                 return new CRT591_MessageResponse();
             if (Message[1] != MachinesAddress)
@@ -112,7 +122,54 @@ namespace CardReader_CRT_591
                 CommandHeaderStatus = CRT591_MessageResponseCommandHeaderStatus.Positive;
             else if (Message[4] == CHN)
                 CommandHeaderStatus = CRT591_MessageResponseCommandHeaderStatus.Negative;
+            Command = Message[5];
+            Param = Message[6];
+            CardStatus = GetCardStatus(Message[7]);
+            StackStatus = GetStackStatus(Message[8]);
+            ErrorBinStatus = GeErrorBinStatus(Message[9]);
+        }
 
+        CRT591_CardStackStatus GetCardStatus(byte In)
+        {
+            switch (In)
+            {
+                case 0x30:
+                    return CRT591_CardStackStatus.CardStatus_NoCard;
+                case 0x31:
+                    return CRT591_CardStackStatus.CardStatus_CardInGate;
+                case 0x32:
+                    return CRT591_CardStackStatus.CardStatus_CardInRFPostion;
+                default:
+                    return CRT591_CardStackStatus.CardStatus_Unkown;
+            }
+        }
+
+        CRT591_CardStackStatus GetStackStatus(byte In)
+        {//1623 tan
+            switch (In)
+            {
+                case 0x30:
+                    return CRT591_CardStackStatus.StackStatus_NoCards;
+                case 0x31:
+                    return CRT591_CardStackStatus.StackStatus_FewCards;
+                case 0x32:
+                    return CRT591_CardStackStatus.StackStatus_FullOfCards;
+                default:
+                    return CRT591_CardStackStatus.StackStatus_Unkown;
+            }
+        }
+
+        CTR591_ErrorCardBinStatus GeErrorBinStatus(byte In)
+        {
+            switch (In)
+            {
+                case 0x30:
+                    return CTR591_ErrorCardBinStatus.ErrorCardBinStatus_NotFull;
+                case 0x31:
+                    return CTR591_ErrorCardBinStatus.ErrorCardBinStatus_Full;
+                default:
+                    return CTR591_ErrorCardBinStatus.ErrorCardBinStatus_Unkown;
+            }
         }
 
         public void Dispose()
