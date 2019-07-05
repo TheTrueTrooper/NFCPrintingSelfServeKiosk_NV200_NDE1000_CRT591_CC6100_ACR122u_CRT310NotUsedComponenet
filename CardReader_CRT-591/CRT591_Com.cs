@@ -42,10 +42,7 @@ namespace CardReader_CRT_591
 
         public byte MachinesAddress { get; private set; }
 
-
         SerialPort SerialPort;
-
-
 
         string PortName
         {
@@ -56,7 +53,7 @@ namespace CardReader_CRT_591
         }
 
 
-        CRT591Com(string SerialPortName, byte MachinesAddress = 0)
+        CRT591_Com(string SerialPortName, byte MachinesAddress = 0)
         {
             if (MachinesAddress > 15 || MachinesAddress < 0)
                 throw new Exception(AddressingError);
@@ -126,9 +123,10 @@ namespace CardReader_CRT_591
             Param = Message[6];
             CardStatus = GetCardStatus(Message[7]);
             StackStatus = GetStackStatus(Message[8]);
-            ErrorBinStatus = GeErrorBinStatus(Message[9]);
+            ErrorBinStatus = GetErrorBinStatus(Message[9]);
         }
 
+        #region helpers
         CRT591_CardStackStatus GetCardStatus(byte In)
         {
             switch (In)
@@ -145,7 +143,7 @@ namespace CardReader_CRT_591
         }
 
         CRT591_CardStackStatus GetStackStatus(byte In)
-        {//1623 tan
+        {
             switch (In)
             {
                 case 0x30:
@@ -159,7 +157,7 @@ namespace CardReader_CRT_591
             }
         }
 
-        CTR591_ErrorCardBinStatus GeErrorBinStatus(byte In)
+        CTR591_ErrorCardBinStatus GetErrorBinStatus(byte In)
         {
             switch (In)
             {
@@ -171,13 +169,14 @@ namespace CardReader_CRT_591
                     return CTR591_ErrorCardBinStatus.ErrorCardBinStatus_Unkown;
             }
         }
+        #endregion
 
         public void Dispose()
         {
             SerialPort?.Dispose();
         }
 
-        ~CRT591Com()
+        ~CRT591_Com()
         {
             SerialPort?.Dispose();
         }
