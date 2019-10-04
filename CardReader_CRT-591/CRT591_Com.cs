@@ -88,7 +88,7 @@ namespace CardReader_CRT_591
             SerialPort.Write(Encoding.ASCII.GetString(Message));
         }
 
-        CRT591_MessageResponse DecodeResponse(byte[] Message)
+        CRT591_BaseResponseMessage DecodeResponse(byte[] Message)
         {
             /// <summary>
             /// Negative message Command Header
@@ -99,31 +99,60 @@ namespace CardReader_CRT_591
             /// </summary>
             const byte CHP = 0x50;
 
-            CRT591_MessageResponseStatus Status = CRT591_MessageResponseStatus.UnkownFormateAssumedNotFor;
-            CRT591_MessageResponseCommandHeaderStatus CommandHeaderStatus = CRT591_MessageResponseCommandHeaderStatus.Unknown;
+            CRT591_MessageResponseStatus MessageStatus = CRT591_MessageResponseStatus.UnkownFormateAssumedNotFor;
             byte Command = 0x00;
             byte Param = 0x00;
 
-            //ST0 CardStatus
-            CRT591_CardStackStatus CardStatus = CRT591_CardStackStatus.CardStatus_Unkown;
-            //ST1 CardStack 
-            CRT591_CardStackStatus StackStatus = CRT591_CardStackStatus.StackStatus_Unkown;
-            //ST2 Error bin status
-            CTR591_ErrorCardBinStatus ErrorBinStatus = CTR591_ErrorCardBinStatus.ErrorCardBinStatus_Unkown;
+            byte LENH = 0x04;
+            byte LENL = 0x04;
+
+            byte MessageAddress = 0x00;
 
             if (Message[0] != STX)
-                return new CRT591_MessageResponse();
+                return new CRT591_BaseResponseMessage();
             if (Message[1] != MachinesAddress)
-                return new CRT591_MessageResponse(CRT591_MessageResponseStatus.NotForThisInstance);
+                return new CRT591_BaseResponseMessage(CRT591_MessageResponseStatus.NotForThisInstance);
+            else
+                MessageAddress = Message[1];
+
+            LENH = Message[2];
+            LENL = Message[3];
+
             if (Message[4] == CHP)
-                CommandHeaderStatus = CRT591_MessageResponseCommandHeaderStatus.Positive;
+                MessageStatus = CRT591_MessageResponseStatus.Positive;
             else if (Message[4] == CHN)
-                CommandHeaderStatus = CRT591_MessageResponseCommandHeaderStatus.Negative;
+                MessageStatus = CRT591_MessageResponseStatus.Negative;
+
             Command = Message[5];
             Param = Message[6];
-            CardStatus = GetCardStatus(Message[7]);
-            StackStatus = GetStackStatus(Message[8]);
-            ErrorBinStatus = GetErrorBinStatus(Message[9]);
+
+            if (MessageStatus == CRT591_MessageResponseStatus.Positive)
+                return DecodePositiveResponse(new CRT591_BaseResponseMessage(MessageStatus, MachinesAddress, Command, Param), Message, LENH, LENL);
+            else if (MessageStatus == CRT591_MessageResponseStatus.Negative)
+                return DecodeNegativeResponse(new CRT591_BaseResponseMessage(MessageStatus, MachinesAddress, Command, Param), Message, LENH, LENL);
+
+            return new CRT591_BaseResponseMessage();
+        }
+
+        CRT591_PositiveResponseMessage DecodePositiveResponse(CRT591_BaseResponseMessage BaseOfMessage, byte[] Message, byte LENH, byte LENL)
+        {
+            //ST0 CardStatus
+            CRT591_CardStackStatus CardStatus = (CRT591_CardStackStatus)Message[7];
+            //ST1 CardStack 
+            CRT591_CardStackStatus StackStatus = (CRT591_CardStackStatus)Message[8];
+            //ST2 Error bin status
+            CTR591_ErrorCardBinStatus ErrorBinStatus = (CTR591_ErrorCardBinStatus)Message[9];
+
+            byte[] Data = new byte[LENL - LENH - 3];
+#warning get Data not done
+            return new CRT591_PositiveResponseMessage(BaseOfMessage.MachineAddress, BaseOfMessage.Command, BaseOfMessage.Param, CardStatus, StackStatus, ErrorBinStatus, Data);
+        }
+
+        CRT591_NegativeResponseMessage DecodeNegativeResponse(CRT591_BaseResponseMessage BaseOfMessage, byte[] Message, byte LENH, byte LENL)
+        {
+            byte[] Data = new byte[LENL - LENH - 2];
+#warning get Data not done
+            return new CRT591_PositiveResponseMessage(BaseOfMessage.MachineAddress, BaseOfMessage.Command, BaseOfMessage.Param, , Data);
         }
 
         #region helpers

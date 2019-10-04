@@ -41,15 +41,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Responses\CRT591_NegativeResponseMessage.cs" />
+    <Compile Include="Responses\CRT591_BaseResponseMessage.cs" />
     <Compile Include="CRT591_Com.cs" />
-    <Compile Include="CRT591_MessageResponse.cs" />
-    <Compile Include="CRTEnums\CRT591_MessageResponseCommandHeaderStatus.cs" />
+    <Compile Include="Responses\CRT591_PositiveResponseMessage.cs" />
     <Compile Include="CRTEnums\CRT591_MessageResponseStatus.cs" />
     <Compile Include="CRTEnums\CRT591_CardStackStatus.cs" />
     <Compile Include="CRTEnums\CRT591_CardStatus.cs" />
     <Compile Include="CRTEnums\CRT591_ErrorCardBinStatus.cs" />
     <Compile Include="CTR591_Errors.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CRT591ComProt.pdf" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
