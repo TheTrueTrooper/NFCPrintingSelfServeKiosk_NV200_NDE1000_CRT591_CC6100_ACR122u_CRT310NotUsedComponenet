@@ -9,12 +9,31 @@ namespace CardReader_CRT_591
     class CRT591_PositiveResponseMessage : CRT591_BaseResponseMessage
     {
         //ST0 CardStack 
+        /// <summary>
+        /// The status of the card track
+        /// </summary>
         CRT591_CardStackStatus CardStatus;
         //ST1 CardStack 
+        /// <summary>
+        /// The status of the loading stack
+        /// </summary>
         CRT591_CardStackStatus StackStatus;
         //ST2 Error bin status
+        /// <summary>
+        /// The status of the errored card bin
+        /// </summary>
         CTR591_ErrorCardBinStatus ErrorBinStatus;
 
+        /// <summary>
+        /// Make one
+        /// </summary>
+        /// <param name="MachineAddress">The machine address</param>
+        /// <param name="Command">The command that was requested</param>
+        /// <param name="Param">the param or sub command that was request</param>
+        /// <param name="CardStatus">The status of the card track</param>
+        /// <param name="StackStatus">The status of the loading stack</param>
+        /// <param name="ErrorBinStatus">The status of the errored card bin</param>
+        /// <param name="Data">The data on the block</param>
         public CRT591_PositiveResponseMessage(byte MachineAddress, byte Command, byte Param, CRT591_CardStackStatus CardStatus, CRT591_CardStackStatus StackStatus, CTR591_ErrorCardBinStatus ErrorBinStatus, byte[] Data = null) : base(CRT591_MessageResponseStatus.Positive, MachineAddress, Command, Param, Data)
         {
             this.CardStatus = CardStatus;

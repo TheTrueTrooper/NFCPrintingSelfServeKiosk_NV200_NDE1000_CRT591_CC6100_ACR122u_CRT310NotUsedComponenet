@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace CardReader_CRT_591
 {
-    enum CRT591_CardStackStatus
+    /// <summary>
+    /// A status Enum returned on reponses for the card track
+    /// </summary>
+    enum CRT591_CardStatus
     {
         CardStatus_NoCard,
         CardStatus_CardInGate,
