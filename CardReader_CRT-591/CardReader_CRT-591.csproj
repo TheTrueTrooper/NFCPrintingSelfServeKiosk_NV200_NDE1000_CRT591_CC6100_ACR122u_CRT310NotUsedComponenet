@@ -41,6 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CRTCommandEnums\CRT591_Commands_24C01To24C256COperationParam.cs" />
+    <Compile Include="CRTCommandEnums\CRT591_Commands_CheckTypeRForICParam.cs" />
+    <Compile Include="CRTCommandEnums\CRT591_Commands_CPUOperationParam.cs" />
+    <Compile Include="CRTCommandEnums\CRT591_Commands_GetStatusParam.cs" />
+    <Compile Include="CRTCommandEnums\CRT591_Commands_InitParam.cs" />
+    <Compile Include="CRTCommandEnums\CRT591_Commands_MifareRFOperationParam.cs" />
+    <Compile Include="CRTCommandEnums\CRT591_Commands_MoveCardParam.cs" />
+    <Compile Include="CRTCommandEnums\CRT591_Commands_RecycleBinCounterParam.cs" />
+    <Compile Include="CRTCommandEnums\CRT591_Commands_SAMOperationParam.cs" />
+    <Compile Include="CRTCommandEnums\CRT591_Commands_SetCardEntryParam.cs" />
+    <Compile Include="CRTCommandEnums\CRT591_Commands_SLEOperationParam.cs" />
     <Compile Include="Responses\CRT591_NegativeResponseMessage.cs" />
     <Compile Include="Responses\CRT591_BaseResponseMessage.cs" />
     <Compile Include="CRT591_Com.cs" />
