@@ -143,12 +143,13 @@ namespace CardReader_CRT_591
             //the Message XOR check (XOR all all bytes and check against the last byte) 
             byte XORCheck = 0;
             //the High byte start will alway be 4 as you have STX = 1, ADDR = 1, LENH = 1, LENL = 1, and finally the start of the message => 0-4
-            byte LENH = 4; // during debug this could be source of error as we are not sure if they mean 0 based indexing but have assumed as so
+            byte LENH = 0; // during debug this could be source of error as we are not sure if they mean 0 based indexing but have assumed as so
+            //byte LENH = (byte)(6 + CommandData.Length);
             //the low byte location set as the end of the data
-            byte LENL = (byte)(6 + CommandData.Length);
-
+            byte LENL = (byte)(CommandData.Length + 3);
+            //byte LENL = 4;
             //this will all ways be the data plus 3
-            int MessageLength = LENL + 3;
+            int MessageLength = LENL + 6;
 
             byte[] Message = new byte[MessageLength];
 
@@ -165,8 +166,10 @@ namespace CardReader_CRT_591
             //Set the end message at the end of the message
             Message[Message.Length - 2] = ETX;
             //Generate a XOR check sum from summing the message using a XOR opp and tack it on
-            for(byte i = 0; i < Message.Length; i++)
-                XORCheck ^= i;
+            for (byte i = 0; i < Message.Length - 1; i++)
+                XORCheck ^= Message[i];
+            //for (byte i = Message[2]; i < Message[3] + 1; i++)
+            //    XORCheck ^= Message[i];
             Message[Message.Length - 1] = XORCheck;
 
             //Send that message
@@ -386,8 +389,8 @@ namespace CardReader_CRT_591
             byte Command = 0x00;
             byte Param = 0x00;
 
-            byte LENH = 0x04;
-            byte LENL = 0x04;
+            byte LENH = 0x00;
+            byte LENL = 0x03;
 
             byte MessageAddress = 0x00;
 
@@ -431,7 +434,7 @@ namespace CardReader_CRT_591
             //ST2 Error bin status
             CTR591_ErrorCardBinStatus ErrorBinStatus = (CTR591_ErrorCardBinStatus)Message[9];
 
-            byte[] Data = new byte[LENL - LENH - 0x05];
+            byte[] Data = new byte[LENH];
             Array.Copy(Message, 10, Data, 0, Data.Length);
 
             return new CRT591_PositiveResponseMessage(BaseOfMessage.MachineAddress, BaseOfMessage.Command, BaseOfMessage.Param, CardStatus, StackStatus, ErrorBinStatus, Data);
@@ -444,7 +447,7 @@ namespace CardReader_CRT_591
             ErrorString += (char)Message[8];
             CTR591_Errors Error = GetError(ErrorString);
 
-            byte[] Data = new byte[LENL - LENH - 0x04];
+            byte[] Data = new byte[LENH];
             Array.Copy(Message, 9, Data, 0, Data.Length);
 
             return new CRT591_NegativeResponseMessage(BaseOfMessage.MachineAddress, BaseOfMessage.Command, BaseOfMessage.Param, Error, Data);
