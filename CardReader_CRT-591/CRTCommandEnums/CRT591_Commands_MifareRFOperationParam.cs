@@ -1,6 +1,6 @@
 ﻿namespace CardReader_CRT_591
 {
-    enum CRT591_Commands_MifareRFOperationParam
+    public enum CRT591_Commands_MifareRFOperationParam
     {
         Startup = 0x30,
         PowerDown = 0x31,

@@ -1,0 +1,6 @@
+C:\Users\Angelo's Tower PC\Desktop\CardReader_CRT591\CardReader_CRT591\CardReader_CRT-591\obj\Debug\CardReader_CRT-591.csprojAssemblyReference.cache
+C:\Users\Angelo's Tower PC\Desktop\CardReader_CRT591\CardReader_CRT591\CardReader_CRT-591\obj\Debug\CardReader_CRT-591.csproj.CoreCompileInputs.cache
+C:\Users\Angelo's Tower PC\Desktop\CardReader_CRT591\CardReader_CRT591\CardReader_CRT-591\bin\Debug\CardReader_CRT-591.dll
+C:\Users\Angelo's Tower PC\Desktop\CardReader_CRT591\CardReader_CRT591\CardReader_CRT-591\bin\Debug\CardReader_CRT-591.pdb
+C:\Users\Angelo's Tower PC\Desktop\CardReader_CRT591\CardReader_CRT591\CardReader_CRT-591\obj\Debug\CardReader_CRT-591.dll
+C:\Users\Angelo's Tower PC\Desktop\CardReader_CRT591\CardReader_CRT591\CardReader_CRT-591\obj\Debug\CardReader_CRT-591.pdb

@@ -9,7 +9,7 @@ namespace CardReader_CRT_591
     /// <summary>
     /// A status Enum returned on reponses for the card track
     /// </summary>
-    enum CRT591_CardStatus
+    public enum CRT591_CardStatus
     {
         CardStatus_NoCard,
         CardStatus_CardInGate,

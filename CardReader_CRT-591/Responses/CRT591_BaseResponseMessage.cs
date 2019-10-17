@@ -9,7 +9,7 @@ namespace CardReader_CRT_591
     /// <summary>
     /// A base message that contains shard data.
     /// </summary>
-    class CRT591_BaseResponseMessage
+    public class CRT591_BaseResponseMessage
     {
         /// <summary>
         /// The response status of a message
@@ -34,7 +34,7 @@ namespace CardReader_CRT_591
         /// <summary>
         /// The data on the block
         /// </summary>
-        public byte[] Data { get; private set; }
+        public byte[] DataRaw { get; private set; }
 
         /// <summary>
         /// build me one
@@ -50,7 +50,7 @@ namespace CardReader_CRT_591
             this.ResponseStatus = ResponseStatus;
             this.Command = Command;
             this.Param = Param;
-            this.Data = Data;
+            DataRaw = Data;
         }
     }
 }

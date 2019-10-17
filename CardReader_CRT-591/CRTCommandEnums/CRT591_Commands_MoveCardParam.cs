@@ -1,6 +1,6 @@
 ﻿namespace CardReader_CRT_591
 {
-    enum CRT591_Commands_MoveCardParam
+    public enum CRT591_Commands_MoveCardParam
     {
         MoveCardToHolding = 0x30,
         MoveCardToIC = 0x31,

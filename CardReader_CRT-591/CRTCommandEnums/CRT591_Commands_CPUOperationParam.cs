@@ -1,6 +1,6 @@
 ﻿namespace CardReader_CRT_591
 {
-    enum CRT591_Commands_CPUOperationParam
+    public enum CRT591_Commands_CPUOperationParam
     {
         ColdReset = 0x30,
         PowerDown = 0x31,

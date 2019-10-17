@@ -1,6 +1,6 @@
 ﻿namespace CardReader_CRT_591
 {
-    enum CRT591_Commands_InitParam
+    public enum CRT591_Commands_InitParam
     {
         MoveCardToHolding = 0x30,
         CaptureCardToErrorBin = 0x31,

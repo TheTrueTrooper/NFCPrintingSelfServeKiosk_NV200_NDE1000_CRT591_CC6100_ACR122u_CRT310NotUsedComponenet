@@ -9,7 +9,7 @@ namespace CardReader_CRT_591
     /// <summary>
     /// A set of errors that the system could have
     /// </summary>
-    enum CTR591_Errors
+    public enum CTR591_Errors
     {
         Error_CommandUndefined = 00,
         Error_CommandParameterError = 01,
@@ -29,14 +29,15 @@ namespace CardReader_CRT_591
         Error_MotorError = 51,
         Error_CardPowerSupplyShort = 60,
         Error_CardActiviationFailure = 61,
-        Error_CardNotSupported = 62,
-        Error_CardDisabled = 65,
-        Error_CommandNotSupportedByCard = 66,
-        Error_CardTransmittionError = 67,
-        Error_CardTransmittionOvertime = 68,
-        Error_NonEMVStandardCompliance = 69,
+        Error_ICCommandNotSupportedByCard = 62,
+        Error_ICCardDisabled = 65,
+        Error_ICCommandNotSupportedByCardAtThisTime = 66,
+        Error_ICCardTransmittionError = 67,
+        Error_ICCardTransmittionOvertime = 68,
+        Error_CPUSAMNonEMVStandardCompliance = 69,
         Error_EmptyStacker = 80,     //A0
         Error_ErrorCardBinFull = 81, //A1
         Error_RequireReset = 90,     //B0
+        Error_NotMapped = 0xFF
     }
 }

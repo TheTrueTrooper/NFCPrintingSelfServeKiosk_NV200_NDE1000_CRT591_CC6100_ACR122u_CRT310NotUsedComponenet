@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CardReader_CRT_591
 {
-    class CRT591_NegativeResponseMessage : CRT591_BaseResponseMessage
+    public class CRT591_NegativeResponseMessage : CRT591_BaseResponseMessage
     {
         /// <summary>
         /// the error that was described
