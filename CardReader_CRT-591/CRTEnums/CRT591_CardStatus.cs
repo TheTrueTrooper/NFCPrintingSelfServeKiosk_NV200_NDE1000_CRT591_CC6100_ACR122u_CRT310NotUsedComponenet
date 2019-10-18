@@ -11,9 +11,9 @@ namespace CardReader_CRT_591
     /// </summary>
     public enum CRT591_CardStatus
     {
-        CardStatus_NoCard,
-        CardStatus_CardInGate,
-        CardStatus_CardInRFPostion,
-        CardStatus_Unkown
+        CardStatus_Unkown,
+        CardStatus_NoCard = 0x30,
+        CardStatus_CardInGate = 0x31,
+        CardStatus_CardInRFPostion = 0x32
     }
 }

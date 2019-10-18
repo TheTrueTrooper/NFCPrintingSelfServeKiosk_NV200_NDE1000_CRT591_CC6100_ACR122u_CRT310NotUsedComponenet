@@ -11,9 +11,9 @@ namespace CardReader_CRT_591
     /// </summary>
     public enum CRT591_CardStackStatus
     {
-        StackStatus_NoCards,
-        StackStatus_FewCards,
-        StackStatus_FullOfCards,
-        StackStatus_Unkown
+        StackStatus_Unkown,
+        StackStatus_NoCards = 0x30,
+        StackStatus_FewCards = 0x31,
+        StackStatus_FullOfCards = 0x32
     }
 }

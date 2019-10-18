@@ -18,3 +18,4 @@ C:\Users\sovie\Desktop\New folder\CardReader_CRT591\TestConsole\bin\Debug\CardRe
 C:\Users\sovie\Desktop\New folder\CardReader_CRT591\TestConsole\bin\Debug\CardReader_CRT-591.pdb
 C:\Users\sovie\Desktop\New folder\CardReader_CRT591\TestConsole\obj\Debug\TestConsole.csproj.CopyComplete
 C:\Users\sovie\Desktop\New folder\CardReader_CRT591\TestConsole\bin\Debug\Com.txt
+C:\Users\Angelo's Tower PC\Desktop\CardReader_CRT591\CardReader_CRT591\TestConsole\bin\Debug\Com.txt

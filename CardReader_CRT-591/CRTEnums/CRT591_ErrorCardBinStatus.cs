@@ -11,8 +11,8 @@ namespace CardReader_CRT_591
     /// </summary>
     public enum CTR591_ErrorCardBinStatus
     {
-        ErrorCardBinStatus_NotFull,
-        ErrorCardBinStatus_Full,
-        ErrorCardBinStatus_Unkown
+        ErrorCardBinStatus_Unkown,
+        ErrorCardBinStatus_NotFull = 0x30,
+        ErrorCardBinStatus_Full = 0x31
     }
 }
