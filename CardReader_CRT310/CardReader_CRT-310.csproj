@@ -7,8 +7,8 @@
     <ProjectGuid>{D8958330-2C62-4253-BE80-976E0D5450AF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ClassLibrary1</RootNamespace>
-    <AssemblyName>ClassLibrary1</AssemblyName>
+    <RootNamespace>CardReader_CRT310</RootNamespace>
+    <AssemblyName>CardReader_CRT310</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -44,22 +44,19 @@
     <Compile Include="CRT310_Com.cs" />
     <Compile Include="CRT310_CommandException.cs" />
     <Compile Include="CRT310_Errors.cs" />
-    <Compile Include="CRTCommandEnums\CRT310_Commands_24C01To24C256COperationParam.cs" />
-    <Compile Include="CRTCommandEnums\CRT310_Commands_CheckTypeRForICParam.cs" />
-    <Compile Include="CRTCommandEnums\CRT310_Commands_CPUOperationParam.cs" />
-    <Compile Include="CRTCommandEnums\CRT310_Commands_SetCardEntryParam.cs" />
-    <Compile Include="CRTCommandEnums\CRT310_Commands_GetPartsMaintenancetLifeTimeParam.cs" />
-    <Compile Include="CRTCommandEnums\CRT310_Commands_RecycleBinCounterParam.cs" />
-    <Compile Include="CRTCommandEnums\CRT310_Commands_GetStatusParam.cs" />
+    <Compile Include="CRTCommandEnums\CRT310_Commands_MoveParam.cs" />
+    <Compile Include="CRTEnums\CRT310_CardOperationStatus.cs" />
+    <Compile Include="StatusPackages\CRT310_SensorStatuss.cs" />
+    <Compile Include="StatusPackages\CRT310_ReaderStatus.cs" />
+    <Compile Include="CRTCommandEnums\CRT310_Commands_CardReaderStatusParam.cs" />
     <Compile Include="CRTCommandEnums\CRT310_Commands_InitParam.cs" />
-    <Compile Include="CRTCommandEnums\CRT310_Commands_LEDOperationParam.cs" />
-    <Compile Include="CRTCommandEnums\CRT310_Commands_MagneticCardOperationParam.cs" />
-    <Compile Include="CRTCommandEnums\CRT310_Commands_MifareRFOperationParam.cs" />
-    <Compile Include="CRTCommandEnums\CRT310_Commands_MoveCardParam.cs" />
-    <Compile Include="CRTCommandEnums\CRT310_Commands_SAMOperationParam.cs" />
-    <Compile Include="CRTCommandEnums\CRT310_Commands_SLEOperationParam.cs" />
+    <Compile Include="CRTEnums\CRT310_CardReaderFrontStatus.cs" />
     <Compile Include="CRTEnums\CRT310_CardStatus.cs" />
+    <Compile Include="CRTEnums\CRT310_CardReaderRearStatus.cs" />
     <Compile Include="CRTEnums\CRT310_MessageResponseStatus.cs" />
+    <Compile Include="CRTEnums\CRT310_SensorStatus.cs" />
+    <Compile Include="CRTEnums\CRT310_ShutterStatus.cs" />
+    <Compile Include="CRTEnums\CRT310_SwitchStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Responses\CRT310_BaseResponseMessage.cs" />
     <Compile Include="Responses\CRT310_NegativeResponseMessage.cs" />

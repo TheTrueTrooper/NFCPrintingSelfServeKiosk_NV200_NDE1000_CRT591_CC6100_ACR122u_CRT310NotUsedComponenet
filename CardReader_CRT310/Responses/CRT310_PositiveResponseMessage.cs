@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CardReader_CRT_310
+namespace CardReader_CRT310
 {
     public class CRT310_PositiveResponseMessage : CRT310_BaseResponseMessage
     {
-        //ST0 CardStack  &ST1 CardStack 
+
         /// <summary>
-        /// The status of the card track
+        /// the param or sub command that was request
         /// </summary>
-        CRT310_CardStatus CardStatus;
+        public byte Param { get; private set; }
 
         /// <summary>
         /// Make one
@@ -24,9 +24,9 @@ namespace CardReader_CRT_310
         /// <param name="StackStatus">The status of the loading stack</param>
         /// <param name="ErrorBinStatus">The status of the errored card bin</param>
         /// <param name="Data">The data on the block</param>
-        public CRT310_PositiveResponseMessage(byte MachineAddress, byte Command, byte Param, CRT310_CardStatus CardStatus, byte[] Data = null) : base(CRT310_MessageResponseStatus.Positive, MachineAddress, Command, Param, Data)
+        public CRT310_PositiveResponseMessage(byte Command, byte Param, byte[] Data = null) : base(CRT310_MessageResponseStatus.Positive, Command, Data)
         {
-            this.CardStatus = CardStatus;
+            this.Param = Param;
         }
     }
 }

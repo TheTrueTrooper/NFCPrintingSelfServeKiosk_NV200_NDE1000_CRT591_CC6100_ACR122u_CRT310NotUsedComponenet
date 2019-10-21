@@ -8,9 +8,10 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>TestConsole</RootNamespace>
     <AssemblyName>TestConsole</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -52,6 +53,10 @@
     <ProjectReference Include="..\CardReader_CRT-591\CardReader_CRT-591.csproj">
       <Project>{3d4900d4-f6f4-4596-a7c7-57e1de1e7001}</Project>
       <Name>CardReader_CRT-591</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CardReader_CRT310\CardReader_CRT-310.csproj">
+      <Project>{d8958330-2c62-4253-be80-976e0d5450af}</Project>
+      <Name>CardReader_CRT-310</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

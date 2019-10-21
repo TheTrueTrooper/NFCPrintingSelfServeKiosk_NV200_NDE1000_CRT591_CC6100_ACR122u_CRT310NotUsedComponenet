@@ -7,6 +7,7 @@ using CardReader_CRT_591;
 using System.IO.Ports;
 using System.Threading;
 using System.IO;
+using CardReader_CRT310;
 
 namespace TestConsole
 {
@@ -16,43 +17,86 @@ namespace TestConsole
         {
             // The code provided will print ‘Hello World’ to the console.
             // Press Ctrl+F5 (or go to Debug > Start Without Debugging) to run your app.
+            #region CardStackTesting
             #region RealTesting
             //string Com;
             //using (StreamReader SR = new StreamReader($"{Environment.CurrentDirectory}\\Com.txt"))
             //    Com = SR.ReadToEnd();
             //CRT591_Com CardStack = new CRT591_Com(Com);
             //CardStack.OpenCom();
-
-            //string Data;
-
-            //CardStack.SendResetInitCommand(out Data, CRT591_Commands_InitParam.MoveCardToHolding);
-            //Console.WriteLine(Data);
-
+            //Thread.Sleep(300);
+            //Console.WriteLine(CardStack.ResetInitCommand(CRT591_Commands_InitParam.MoveCardToHolding));
+            //Thread.Sleep(300);
+            //CardStack.MoveCardCommand(CRT591_Commands_MoveCardParam.MoveCardToGate);
+            //Thread.Sleep(300);
+            //CardStack.MoveCardCommand(CRT591_Commands_MoveCardParam.MoveCardToGate);
             #endregion
 
             #region SudoTesting
-            //byte[] PositiveMessage = new byte[] { 0xF2, 0x00, LENH, LENL, 0x50, 0x30, 0x33, St0, St1, St2, byte[]NData, 0x03, xor };
-            //byte[] NegativeResponse = new byte[] { 0xF2, 0x00, LENH, LENL, 0x45, 0x30, 0x33, E1, E0, byte[]NData, 0x03, xor };
+            ////byte[] PositiveMessage = new byte[] { 0xF2, 0x00, LENH, LENL, 0x50, 0x30, 0x33, St0, St1, St2, byte[]NData, 0x03, xor };
+            ////byte[] NegativeResponse = new byte[] { 0xF2, 0x00, LENH, LENL, 0x45, 0x30, 0x33, E1, E0, byte[]NData, 0x03, xor };
 
-            SerialPort Reponse = new SerialPort("Com3", CRT591_Com.BaudRate, Parity.None, CRT591_Com.DataSize, StopBits.One);
-            Reponse.Open();
+            //SerialPort Reponse = new SerialPort("Com3", CRT591_Com.BaudRate, Parity.None, CRT591_Com.DataSize, StopBits.One);
+            //Reponse.Open();
 
-            CRT591_Com CardStacker = new CRT591_Com("Com6");
-            CardStacker.OpenCom();
-            Task<string> Task = new Task<string>(() => {
-                string Out;
-                CardStacker.SendResetInitCommand(out Out);
-                return Out;
-                });
-            Task.Start();
-            Thread.Sleep(100);
-            Reponse.Write(new byte[] { CRT591_Com.ACK }, 0, 1);
-            //Negative Rsponse built
-            //Reponse.Write(new byte[11] { 0xF2, 0x00, 0x04, 0x08, 0x45, 0x30, 0x33, (byte)'0', (byte)'1', 0x03, 0xAF }, 0, 11);
-            //Positive response built with no data
-            Reponse.Write(new byte[24] { CRT591_Com.STX, 0x00, 0x00, 0x12, 0x50, 0x30, 0x33, (byte)CRT591_CardStatus.CardStatus_NoCard, (byte)CRT591_CardStackStatus.StackStatus_FewCards, (byte)CTR591_ErrorCardBinStatus.ErrorCardBinStatus_NotFull, 0x43, 0x52, 0x54, 0x2D, 0x35, 0x39, 0x31, 0x2D, 0x4D, 0x52, 0x30, 0x31, CRT591_Com.ETX, 0xE7 }, 0, 24);
-            //                                 F2       00     00   12    50    30    33               30                                      31                                                    30                                                43    52    54    2D    35    39    31    2D    4D    52    30    31      03            E7 
-            Console.WriteLine(Task.Result);
+            //CRT591_Com CardStacker = new CRT591_Com("Com6");
+            //CardStacker.OpenCom();
+            //Task<string> Task = new Task<string>(() =>
+            //{
+            //    return CardStacker.ResetInitCommand();
+            //});
+            //Task.Start();
+            //Thread.Sleep(100);
+            //Reponse.Write(new byte[] { CRT591_Com.ACK }, 0, 1);
+            ////Negative Rsponse built
+            ////Reponse.Write(new byte[11] { 0xF2, 0x00, 0x04, 0x08, 0x45, 0x30, 0x33, (byte)'0', (byte)'1', 0x03, 0xAF }, 0, 11);
+            ////Positive response built with no data
+            //Reponse.Write(new byte[24] { CRT591_Com.STX, 0x00, 0x00, 0x12, 0x50, 0x30, 0x33, (byte)CRT591_CardStatus.CardStatus_NoCard, (byte)CRT591_CardStackStatus.StackStatus_FewCards, (byte)CTR591_ErrorCardBinStatus.ErrorCardBinStatus_NotFull, 0x43, 0x52, 0x54, 0x2D, 0x35, 0x39, 0x31, 0x2D, 0x4D, 0x52, 0x30, 0x31, CRT591_Com.ETX, 0xE7 }, 0, 24);
+            ////                                 F2       00     00   12    50    30    33               30                                      31                                                    30                                                43    52    54    2D    35    39    31    2D    4D    52    30    31      03            E7 
+            //Console.WriteLine(Task.Result);
+            #endregion
+            #endregion
+
+            #region CardReaderTesting
+            #region SudoTesting
+            //SerialPort Reponse = new SerialPort("Com3", CRT310_Com.BaudRate, Parity.None, CRT310_Com.DataSize, StopBits.One);
+            //Reponse.Open();
+
+            //CRT310_Com Reader = new CRT310_Com("Com6");
+            //Reader.OpenCom();
+
+            //Task<string> Task = new Task<string>(() =>
+            //{
+            //    return Reader.ResetInitCommand();
+            //});
+            //Task.Start();
+            //Thread.Sleep(100);
+            //Reponse.Write(new byte[] { CRT310_Com.ACK }, 0, 1);
+            //Reponse.Write(new byte[8] { CRT310_Com.STX, 0x00, 0x03, 0x32, 0x30, 0x59, CRT310_Com.ETX, 0x59 }, 0, 8);
+            ////                                  02        00    03    32    30    59          03         59             
+            //Console.WriteLine(Task.Result);
+            #endregion
+            #region RealTesting
+            string Com;
+            using (StreamReader SR = new StreamReader($"{Environment.CurrentDirectory}\\Com.txt"))
+                Com = SR.ReadToEnd();
+            CRT310_Com CardReader = new CRT310_Com(Com);
+            CardReader.OpenCom();
+            Thread.Sleep(300);
+            Console.WriteLine(CardReader.ResetInitCommand(CRT310_Commands_InitParam.ResetAndReturnVersion));
+            Thread.Sleep(300);
+            CRT310_CardStatus CardStatus = CRT310_CardStatus.NoCardInTheReader;
+            while(CardStatus == CRT310_CardStatus.NoCardInTheReader)
+            {
+                CRT310_ReaderStatus Status = CardReader.ReaderStatus();
+                CardStatus = Status.CardStatus;
+                Console.WriteLine(CardStatus.ToString());
+                Thread.Sleep(300);
+            }
+            Thread.Sleep(300);
+            Console.WriteLine("Ejecting card now");
+            Console.WriteLine(CardReader.MoveCard(CRT310_Commands_MoveParam.EjectCardFront).ToString());
+            #endregion
             #endregion
             Console.ReadKey();
 

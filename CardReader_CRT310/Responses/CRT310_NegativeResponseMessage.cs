@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CardReader_CRT_310
+namespace CardReader_CRT310
 {
     public class CRT310_NegativeResponseMessage : CRT310_BaseResponseMessage
     {
@@ -21,7 +21,7 @@ namespace CardReader_CRT_310
         /// <param name="Param">the param or sub command that was request</param>
         /// <param name="Error">The error that was generated</param>
         /// <param name="Data">The data on the block</param>
-        public CRT310_NegativeResponseMessage(byte MachineAddress, byte Command, byte Param, CRT310_Errors Error, byte[] Data = null) : base(CRT310_MessageResponseStatus.Negative, MachineAddress, Command, Param, Data)
+        public CRT310_NegativeResponseMessage(byte Command, CRT310_Errors Error, byte[] Data = null) : base(CRT310_MessageResponseStatus.Negative, Command, Data)
         {
             this.Error = Error;
         }

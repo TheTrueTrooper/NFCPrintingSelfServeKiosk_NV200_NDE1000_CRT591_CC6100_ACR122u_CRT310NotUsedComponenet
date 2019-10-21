@@ -170,7 +170,7 @@ namespace CardReader_CRT_591
 
             //Send that message
             SerialPort.Write(Message, 0, Message.Length);
-            
+
 
 
             byte Ack = (byte)SerialPort.ReadByte();
@@ -187,24 +187,30 @@ namespace CardReader_CRT_591
                 Char = (byte)SerialPort.ReadByte();
                 Response.Add(Char);
             }
-            while (Response.Count < 1 || Response[Response.Count - 1] != 0x03);
+            while (Response.Count < 5 || Response[Response.Count - 1] != ETX);
+
             Char = (byte)SerialPort.ReadByte();
             Response.Add(Char);
+
             CRT591_BaseResponseMessage Return = DecodeResponse(Response.ToArray());
+
             if (Return is CRT591_NegativeResponseMessage)
                 throw new CRT591_CommandException((CRT591_NegativeResponseMessage)Return);
+
+            //send acknologment
+            SerialPort.Write(new byte[] { ACK }, 0, 1);
             return (CRT591_PositiveResponseMessage)Return;
         }
         #endregion
 
-        public string SendResetInitCommand(CRT591_Commands_InitParam InItParam = CRT591_Commands_InitParam.DontMoveCard)
+        public string ResetInitCommand(CRT591_Commands_InitParam InItParam = CRT591_Commands_InitParam.DontMoveCard)
         {
             string RevType;
-            byte command = (byte)Commands.INITIALIZE;
-            byte commandParameter = (byte)InItParam;
-            byte[] commandData = new byte[0];
+            byte Command = (byte)Commands.INITIALIZE;
+            byte CommandParameter = (byte)InItParam;
+            byte[] CommandData = new byte[0];
 
-            CRT591_PositiveResponseMessage Return = SendCommand(command, commandParameter, commandData);
+            CRT591_PositiveResponseMessage Return = SendCommand(Command, CommandParameter, CommandData);
             RevType = ASCIIEncoding.ASCII.GetString(Return.DataRaw);
 
             Initialized = true;
@@ -217,11 +223,11 @@ namespace CardReader_CRT_591
             if (!Initialized)
                 throw new Exception(InitError);
 
-            byte command = (byte)Commands.CARDMOVE;
-            byte commandParameter = (byte)MoveCardParma;
-            byte[] commandData = new byte[0];
+            byte Command = (byte)Commands.CARDMOVE;
+            byte CommandParameter = (byte)MoveCardParma;
+            byte[] CommandData = new byte[0];
 
-            SendCommand(command, commandParameter, commandData);
+            SendCommand(Command, CommandParameter, CommandData);
         }
 
         public void CardGateEntrySetCommand(CRT591_Commands_SetCardEntryParam GateSetting = CRT591_Commands_SetCardEntryParam.DisableCardEntryFromOutput)
@@ -229,11 +235,11 @@ namespace CardReader_CRT_591
             if (!Initialized)
                 throw new Exception(InitError);
 
-            byte command = (byte)Commands.CARDENTRY;
-            byte commandParameter = (byte)GateSetting; //Disable card input from gate
-            byte[] commandData = new byte[0];
+            byte Command = (byte)Commands.CARDENTRY;
+            byte CommandParameter = (byte)GateSetting; //Disable card input from gate
+            byte[] CommandData = new byte[0];
 
-            SendCommand(command, commandParameter, commandData);
+            SendCommand(Command, CommandParameter, CommandData);
         }
 
         public CRT591_SensorStatus[] RequestStatus(CRT591_Commands_GetStatusParam StatusParma = CRT591_Commands_GetStatusParam.GetCRT591Status)
@@ -241,10 +247,10 @@ namespace CardReader_CRT_591
             if (!Initialized)
                 throw new Exception(InitError);
 
-            byte command = (byte)Commands.STATUSREQUEST;
-            byte commandParameter = (byte)StatusParma; //Disable card input from gate
-            byte[] commandData = new byte[0];
-            CRT591_PositiveResponseMessage Return = SendCommand(command, commandParameter, commandData);
+            byte Command = (byte)Commands.STATUSREQUEST;
+            byte CommandParameter = (byte)StatusParma; //Disable card input from gate
+            byte[] CommandData = new byte[0];
+            CRT591_PositiveResponseMessage Return = SendCommand(Command, CommandParameter, CommandData);
             CRT591_SensorStatus[] Sensors = new CRT591_SensorStatus[Return.DataRaw.Length];
             for (int i = 0; i < Return.DataRaw.Length; i++)
                 Sensors[i] = (CRT591_SensorStatus)Return.DataRaw[i];
@@ -256,12 +262,12 @@ namespace CardReader_CRT_591
             if (!Initialized)
                 throw new Exception(InitError);
 
-            byte command = (byte)Commands.RECYCLEBINCOUNTER;
-            byte commandParameter = (byte)CRT591_Commands_RecycleBinCounterParam.ReadCounter; //Disable card input from gate
-            byte[] commandData = new byte[0];
+            byte Command = (byte)Commands.RECYCLEBINCOUNTER;
+            byte CommandParameter = (byte)CRT591_Commands_RecycleBinCounterParam.ReadCounter; //Disable card input from gate
+            byte[] CommandData = new byte[0];
             byte[] CountBytes = new byte[4];
 
-            CRT591_PositiveResponseMessage Return = SendCommand(command, commandParameter, commandData);
+            CRT591_PositiveResponseMessage Return = SendCommand(Command, CommandParameter, CommandData);
 
             if (BitConverter.IsLittleEndian)
                 Array.Copy(Return.DataRaw, CountBytes, Return.DataRaw.Length);
@@ -276,17 +282,17 @@ namespace CardReader_CRT_591
             if (!Initialized)
                 throw new Exception(InitError);
 
-            byte command = (byte)Commands.RECYCLEBINCOUNTER;
-            byte commandParameter = (byte)CRT591_Commands_RecycleBinCounterParam.InitiaterCounter; //Disable card input from gate
-            byte[] commandData = new byte[3];
+            byte Command = (byte)Commands.RECYCLEBINCOUNTER;
+            byte CommandParameter = (byte)CRT591_Commands_RecycleBinCounterParam.InitiaterCounter; //Disable card input from gate
+            byte[] CommandData = new byte[3];
             byte[] Int32Bytes = BitConverter.GetBytes(Counter);
 
             if (BitConverter.IsLittleEndian)
-                Array.Copy(Int32Bytes, 0, commandData, 0, commandData.Length);
+                Array.Copy(Int32Bytes, 0, CommandData, 0, CommandData.Length);
             else
-                Array.Copy(Int32Bytes, 1, commandData, 0, commandData.Length);
+                Array.Copy(Int32Bytes, 1, CommandData, 0, CommandData.Length);
 
-            SendCommand(command, commandParameter, commandData);
+            SendCommand(Command, CommandParameter, CommandData);
         }
 
         public string ReadCRT591FirmwareVers()
@@ -294,11 +300,11 @@ namespace CardReader_CRT_591
             if (!Initialized)
                 throw new Exception(InitError);
 
-            byte command = (byte)Commands.READCRT591MVERSION;
-            byte commandParameter = 0x30; //Disable card input from gate
-            byte[] commandData = new byte[0];
+            byte Command = (byte)Commands.READCRT591MVERSION;
+            byte CommandParameter = 0x30; //Disable card input from gate
+            byte[] CommandData = new byte[0];
 
-            CRT591_PositiveResponseMessage Return = SendCommand(command, commandParameter, commandData);
+            CRT591_PositiveResponseMessage Return = SendCommand(Command, CommandParameter, CommandData);
             return ASCIIEncoding.ASCII.GetString(Return.DataRaw);
         }
 
@@ -307,11 +313,11 @@ namespace CardReader_CRT_591
             if (!Initialized)
                 throw new Exception(InitError);
 
-            byte command = (byte)Commands.READCARDCONFIG;
-            byte commandParameter = 0x30; //Disable card input from gate
-            byte[] commandData = new byte[0];
+            byte Command = (byte)Commands.READCARDCONFIG;
+            byte CommandParameter = 0x30; //Disable card input from gate
+            byte[] CommandData = new byte[0];
 
-            CRT591_PositiveResponseMessage Return = SendCommand(command, commandParameter, commandData);
+            CRT591_PositiveResponseMessage Return = SendCommand(Command, CommandParameter, CommandData);
             return ASCIIEncoding.ASCII.GetString(Return.DataRaw);
         }
 
@@ -320,11 +326,11 @@ namespace CardReader_CRT_591
             if (!Initialized)
                 throw new Exception(InitError);
 
-            byte command = (byte)Commands.CARDSERIALNUMBER;
-            byte commandParameter = 0x30; //Disable card input from gate
-            byte[] commandData = new byte[0];
+            byte Command = (byte)Commands.CARDSERIALNUMBER;
+            byte CommandParameter = 0x30; //Disable card input from gate
+            byte[] CommandData = new byte[0];
 
-            return SendCommand(command, commandParameter, commandData).DataRaw;
+            return SendCommand(Command, CommandParameter, CommandData).DataRaw;
         }
 
         public CRT591_PositiveResponseMessage ReadCardType(CRT591_Commands_CheckTypeRForICParam CheckTypeParam = CRT591_Commands_CheckTypeRForICParam.AutoCheckICType)
@@ -332,59 +338,99 @@ namespace CardReader_CRT_591
             if (!Initialized)
                 throw new Exception(InitError);
 
-            byte command = (byte)Commands.CARDTYPE;
-            byte commandParameter = (byte)CheckTypeParam; //Disable card input from gate
-            byte[] commandData = new byte[0];
+            byte Command = (byte)Commands.CARDTYPE;
+            byte CommandParameter = (byte)CheckTypeParam; //Disable card input from gate
+            byte[] CommandData = new byte[0];
 
-            return SendCommand(command, commandParameter, commandData);
+            return SendCommand(Command, CommandParameter, CommandData);
         }
 
-        #region SendCommandsForSpecificCards 
-        internal CRT591_PositiveResponseMessage SendRFCardControl(CRT591_Commands_MifareRFOperationParam CardOperation = CRT591_Commands_MifareRFOperationParam.Startup)
+        #region SendCommandsForSpecificCardsBase
+        internal CRT591_PositiveResponseMessage SendRFCardControl(CRT591_Commands_MifareRFOperationParam CardOperation = CRT591_Commands_MifareRFOperationParam.Startup, byte[] CommandData = null)
         {
-            byte command = (byte)Commands.RFCARDCONTROL;
-            byte commandParameter = (byte)CardOperation; //Disable card input from gate
-            byte[] commandData = new byte[0];
+            byte Command = (byte)Commands.RFCARDCONTROL;
+            byte CommandParameter = (byte)CardOperation; //Disable card input from gate
+            if (CommandData == null)
+                CommandData = new byte[0];
 
-            return SendCommand(command, commandParameter, commandData);
+            return SendCommand(Command, CommandParameter, CommandData);
         }
 
-        internal CRT591_PositiveResponseMessage SendCPUCardControl(CRT591_Commands_CPUOperationParam CardOperation = CRT591_Commands_CPUOperationParam.ColdReset)
+        internal CRT591_PositiveResponseMessage SendCPUCardControl(CRT591_Commands_CPUOperationParam CardOperation = CRT591_Commands_CPUOperationParam.ColdReset, byte[] CommandData = null)
         {
-            byte command = (byte)Commands.CPUCARDCONTROL;
-            byte commandParameter = (byte)CardOperation; //Disable card input from gate
-            byte[] commandData = new byte[0];
+            byte Command = (byte)Commands.CPUCARDCONTROL;
+            byte CommandParameter = (byte)CardOperation; //Disable card input from gate
+            if (CommandData == null)
+                CommandData = new byte[0];
 
-            return SendCommand(command, commandParameter, commandData);
+            return SendCommand(Command, CommandParameter, CommandData);
         }
 
-        internal CRT591_PositiveResponseMessage SendSAMCardControl(CRT591_Commands_SAMOperationParam CardOperation = CRT591_Commands_SAMOperationParam.ColdReset)
+        internal CRT591_PositiveResponseMessage SendSAMCardControl(CRT591_Commands_SAMOperationParam CardOperation = CRT591_Commands_SAMOperationParam.ColdReset, byte[] CommandData = null)
         {
-            byte command = (byte)Commands.SAMCARDCONTROL;
-            byte commandParameter = (byte)CardOperation; //Disable card input from gate
-            byte[] commandData = new byte[0];
+            byte Command = (byte)Commands.SAMCARDCONTROL;
+            byte CommandParameter = (byte)CardOperation; //Disable card input from gate
+            if (CommandData == null)
+                CommandData = new byte[0];
 
-            return SendCommand(command, commandParameter, commandData);
+            return SendCommand(Command, CommandParameter, CommandData);
         }
 
-        internal CRT591_PositiveResponseMessage SendICCardControl(CRT591_Commands_SAMOperationParam CardOperation = CRT591_Commands_SAMOperationParam.ColdReset)
+        internal CRT591_PositiveResponseMessage SendICCardControl(CRT591_Commands_SAMOperationParam CardOperation = CRT591_Commands_SAMOperationParam.ColdReset, byte[] CommandData = null)
         {
-            byte command = (byte)Commands.ICMEMORYCARD;
-            byte commandParameter = (byte)CardOperation; //Disable card input from gate
-            byte[] commandData = new byte[0];
+            byte Command = (byte)Commands.ICMEMORYCARD;
+            byte CommandParameter = (byte)CardOperation; //Disable card input from gate
+            if (CommandData == null)
+                CommandData = new byte[0];
 
-            return SendCommand(command, commandParameter, commandData);
+            return SendCommand(Command, CommandParameter, CommandData);
         }
 
-        internal CRT591_PositiveResponseMessage SendSLE4442_4428CardControl(CRT591_Commands_SAMOperationParam CardOperation = CRT591_Commands_SAMOperationParam.ColdReset)
+        internal CRT591_PositiveResponseMessage SendSLE4442_4428CardControl(CRT591_Commands_SAMOperationParam CardOperation = CRT591_Commands_SAMOperationParam.ColdReset, byte[] CommandData = null)
         {
-            byte command = (byte)Commands.SLE4442_4428CARDCONTROL;
-            byte commandParameter = (byte)CardOperation; //Disable card input from gate
-            byte[] commandData = new byte[0];
+            byte Command = (byte)Commands.SLE4442_4428CARDCONTROL;
+            byte CommandParameter = (byte)CardOperation; //Disable card input from gate
+            if (CommandData == null)
+                CommandData = new byte[0];
 
-            return SendCommand(command, commandParameter, commandData);
+            return SendCommand(Command, CommandParameter, CommandData);
         }
         #endregion
+        #endregion
+
+        #region CardConnects
+        CRT591_ICard ConnectRFID(CRT591_RFProtocols FirstProtocol = CRT591_RFProtocols.TypeA, CRT591_RFProtocols SecondProtocol = CRT591_RFProtocols.TypeB)
+        {
+            byte[] CommandData = new byte[] { (byte)FirstProtocol, (byte)SecondProtocol };
+            //byte[] CommandData = new byte[0];
+            CRT591_PositiveResponseMessage Response = SendRFCardControl(CRT591_Commands_MifareRFOperationParam.Startup, CommandData);
+
+            byte[] CardData = Response.DataRaw;
+
+            CRT591_RFProtocols CardProtocol = (CRT591_RFProtocols)CardData[0];
+            if (CardProtocol == CRT591_RFProtocols.TypeA || CardProtocol == CRT591_RFProtocols.PhilpsMifareOneCardProtocol)
+            {
+                Int16 ATQA = BitConverter.ToInt16(CardData, 1);//takes [1][2];
+                CRT591_MifareRFTypes CardType = (CRT591_MifareRFTypes)ATQA;//takes [1][2];
+                byte UIDLength = CardData[3];
+
+                byte[] UID = new byte[UIDLength];
+                Array.Copy(CardData, 4, UID, 0, UIDLength);
+
+                byte ManufacturerSAKValue = CardData[5 + UIDLength];
+
+                byte? ATS = null;
+                if (CardProtocol == CRT591_RFProtocols.TypeA)
+                {
+                    ATS = CardData[6 + UIDLength];
+                }
+
+                return new CRT591_MifareRF(this, UID, CardProtocol, CardType, ManufacturerSAKValue, ATS);
+            }
+
+            throw new NotImplementedException("The card type is of an non-reconized type not supported by the software or machine.");
+
+        }
         #endregion
 
         #region MessageDecoding

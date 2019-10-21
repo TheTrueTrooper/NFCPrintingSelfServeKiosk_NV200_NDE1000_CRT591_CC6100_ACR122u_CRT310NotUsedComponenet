@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CardReader_CRT_591</RootNamespace>
     <AssemblyName>CardReader_CRT-591</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,6 +42,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CardTypes\CRT591_CardResponses.cs" />
+    <Compile Include="CardTypes\CRT591_ICard.cs" />
+    <Compile Include="CardTypes\CRT591_MifareKeyTypes.cs" />
+    <Compile Include="CardTypes\CRT591_MifareRF.cs" />
+    <Compile Include="CardTypes\CRT591_MifareRF_Exception.cs" />
+    <Compile Include="CardTypes\CRT591_RFProtocols.cs" />
+    <Compile Include="CardTypes\CRT591_MifareRFTypes.cs" />
     <Compile Include="CRT591_CommandException.cs" />
     <Compile Include="CRTCommandEnums\CRT591_Commands_24C01To24C256COperationParam.cs" />
     <Compile Include="CRTCommandEnums\CRT591_Commands_CheckTypeRForICParam.cs" />
