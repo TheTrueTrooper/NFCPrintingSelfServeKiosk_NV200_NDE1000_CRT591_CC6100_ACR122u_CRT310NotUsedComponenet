@@ -7,6 +7,9 @@ using System.IO.Ports;
 
 namespace CardReader_CRT_591
 {
+    /// <summary>
+    /// A com Port Protocol for the card stacker
+    /// </summary>
     public class CRT591_Com : IDisposable
     {
         enum Commands
@@ -121,7 +124,13 @@ namespace CardReader_CRT_591
             }
         }
 
-
+        /// <summary>
+        /// Creates a com port.
+        /// note you will still need to call 'OpenCom' to open the port
+        /// and then 'ResetInitCommand' to reset the machine befor use
+        /// </summary>
+        /// <param name="SerialPortName">The serial port that the machine is on (currently it is in static COM4)</param>
+        /// <param name="MachinesAddress">The address of the machine as it is addressable 0 should be the defualt</param>
         public CRT591_Com(string SerialPortName, byte MachinesAddress = 0)
         {
             //check if the address is a valid address that the machine can be set for and then set the address with the serial settings
@@ -131,6 +140,9 @@ namespace CardReader_CRT_591
             this.MachinesAddress = MachinesAddress;
         }
 
+        /// <summary>
+        /// Opens the com port for the machine
+        /// </summary>
         public void OpenCom()
         {
             SerialPort.Open();
@@ -203,6 +215,11 @@ namespace CardReader_CRT_591
         }
         #endregion
 
+        /// <summary>
+        /// Starts the machine and either spits out any old card or leaves it.
+        /// </summary>
+        /// <param name="InItParam">what to do with the card</param>
+        /// <returns>A string with the Reader and its vers</returns>
         public string ResetInitCommand(CRT591_Commands_InitParam InItParam = CRT591_Commands_InitParam.DontMoveCard)
         {
             string RevType;
@@ -218,6 +235,10 @@ namespace CardReader_CRT_591
             return RevType;
         }
 
+        /// <summary>
+        /// Moves the card to a postion. if there is (no card pressent it will pull from the stack)
+        /// </summary>
+        /// <param name="MoveCardParma">The postion to move the card to</param>
         public void MoveCardCommand(CRT591_Commands_MoveCardParam MoveCardParma = CRT591_Commands_MoveCardParam.MoveCardToGate)
         {
             if (!Initialized)
@@ -230,6 +251,10 @@ namespace CardReader_CRT_591
             SendCommand(Command, CommandParameter, CommandData);
         }
 
+        /// <summary>
+        /// Closes or opens the gate for card inserting from the front. (should be closed and left closed)
+        /// </summary>
+        /// <param name="GateSetting"></param>
         public void CardGateEntrySetCommand(CRT591_Commands_SetCardEntryParam GateSetting = CRT591_Commands_SetCardEntryParam.DisableCardEntryFromOutput)
         {
             if (!Initialized)
@@ -242,6 +267,11 @@ namespace CardReader_CRT_591
             SendCommand(Command, CommandParameter, CommandData);
         }
 
+        /// <summary>
+        /// Gets the status of the sensors. (not required as we will always pull from the stack)
+        /// </summary>
+        /// <param name="StatusParma"></param>
+        /// <returns></returns>
         public CRT591_SensorStatus[] RequestStatus(CRT591_Commands_GetStatusParam StatusParma = CRT591_Commands_GetStatusParam.GetCRT591Status)
         {
             if (!Initialized)
@@ -257,6 +287,10 @@ namespace CardReader_CRT_591
             return Sensors;
         }
 
+        /// <summary>
+        /// Reads the bins counter. (not required as we dont use it)
+        /// </summary>
+        /// <returns></returns>
         public int ReadBinCounter()
         {
             if (!Initialized)
@@ -277,7 +311,11 @@ namespace CardReader_CRT_591
             return BitConverter.ToInt32(CountBytes, 0);
         }
 
-        public void SetInitBinCounter(int Counter)
+        /// <summary>
+        /// Sets the Bins counter
+        /// </summary>
+        /// <param name="Counter"></param>
+        public void SetInitBinCounter(int Counter = 0)
         {
             if (!Initialized)
                 throw new Exception(InitError);
@@ -295,6 +333,10 @@ namespace CardReader_CRT_591
             SendCommand(Command, CommandParameter, CommandData);
         }
 
+        /// <summary>
+        /// Gets a string with the readers vers
+        /// </summary>
+        /// <returns></returns>
         public string ReadCRT591FirmwareVers()
         {
             if (!Initialized)
@@ -308,6 +350,10 @@ namespace CardReader_CRT_591
             return ASCIIEncoding.ASCII.GetString(Return.DataRaw);
         }
 
+        /// <summary>
+        /// Reads the configs as current
+        /// </summary>
+        /// <returns></returns>
         public string ReadCardConfig()
         {
             if (!Initialized)
@@ -321,6 +367,10 @@ namespace CardReader_CRT_591
             return ASCIIEncoding.ASCII.GetString(Return.DataRaw);
         }
 
+        /// <summary>
+        /// Gets a cards serial number
+        /// </summary>
+        /// <returns></returns>
         public byte[] ReadCardSerialNumber()
         {
             if (!Initialized)
@@ -333,6 +383,11 @@ namespace CardReader_CRT_591
             return SendCommand(Command, CommandParameter, CommandData).DataRaw;
         }
 
+        /// <summary>
+        /// Reads the card type work in progress.
+        /// </summary>
+        /// <param name="CheckTypeParam"></param>
+        /// <returns></returns>
         public CRT591_PositiveResponseMessage ReadCardType(CRT591_Commands_CheckTypeRForICParam CheckTypeParam = CRT591_Commands_CheckTypeRForICParam.AutoCheckICType)
         {
             if (!Initialized)
@@ -399,6 +454,12 @@ namespace CardReader_CRT_591
         #endregion
 
         #region CardConnects
+        /// <summary>
+        /// Connects to the card and returns a ICard interface that will be shard with every card type. (CRT591_MifareRF will be our card type)
+        /// </summary>
+        /// <param name="FirstProtocol">The T0 and T1 protocols to read with(leave defualt unless you know what you are doing)</param>
+        /// <param name="SecondProtocol">The T0 and T1 protocols to fall back on(leave defualt unless you know what you are doing)</param>
+        /// <returns></returns>
         CRT591_ICard ConnectRFID(CRT591_RFProtocols FirstProtocol = CRT591_RFProtocols.TypeA, CRT591_RFProtocols SecondProtocol = CRT591_RFProtocols.TypeB)
         {
             byte[] CommandData = new byte[] { (byte)FirstProtocol, (byte)SecondProtocol };

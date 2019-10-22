@@ -80,12 +80,16 @@ namespace TestConsole
             string Com;
             using (StreamReader SR = new StreamReader($"{Environment.CurrentDirectory}\\Com.txt"))
                 Com = SR.ReadToEnd();
+            //Create a Reader
             CRT310_Com CardReader = new CRT310_Com(Com);
+            //Open its com port
             CardReader.OpenCom();
             Thread.Sleep(300);
+            //Required call to Init
             Console.WriteLine(CardReader.ResetInitCommand(CRT310_Commands_InitParam.ResetAndReturnVersion));
             Thread.Sleep(300);
             CRT310_CardStatus CardStatus = CRT310_CardStatus.NoCardInTheReader;
+            //Simple poll loop
             while(CardStatus == CRT310_CardStatus.NoCardInTheReader)
             {
                 CRT310_ReaderStatus Status = CardReader.ReaderStatus();
@@ -94,6 +98,7 @@ namespace TestConsole
                 Thread.Sleep(300);
             }
             Thread.Sleep(300);
+            //Eject card on detect
             Console.WriteLine("Ejecting card now");
             Console.WriteLine(CardReader.MoveCard(CRT310_Commands_MoveParam.EjectCardFront).ToString());
             #endregion

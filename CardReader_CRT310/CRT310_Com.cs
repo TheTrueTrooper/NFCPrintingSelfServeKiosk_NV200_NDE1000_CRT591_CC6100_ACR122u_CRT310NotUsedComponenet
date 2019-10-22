@@ -5,6 +5,9 @@ using System.Text;
 
 namespace CardReader_CRT310
 {
+    /// <summary>
+    /// A com Port Protocol for the card reader (Credit/Debit)
+    /// </summary>
     public class CRT310_Com : IDisposable
     {
         enum Commands
@@ -25,6 +28,7 @@ namespace CardReader_CRT310
 
 
         const string InitError = "Reader has not been Initialized. Please call 'SendResetInitCommand' to Initialize before use.";
+        const string DisposedError = "Reader has already been disposed and marked for clean up.";
 
         /// <summary>
         /// Start of Text Message
@@ -95,6 +99,11 @@ namespace CardReader_CRT310
 #endif
 
         /// <summary>
+        /// Gets if this has been disposed
+        /// </summary>
+        public bool Disposed { get; private set; } = false;
+
+        /// <summary>
         /// The actual Serial port for communication
         /// </summary>
         SerialPort SerialPort;
@@ -110,12 +119,18 @@ namespace CardReader_CRT310
             }
         }
 
-
+        /// <summary>
+        /// Creates a reader and its commands
+        /// </summary>
+        /// <param name="SerialPortName"></param>
         public CRT310_Com(string SerialPortName)
-        {;
+        {
             SerialPort = new SerialPort(SerialPortName, BaudRate, Parity.None, DataSize, StopBits.One);
         }
 
+        /// <summary>
+        /// opens the port
+        /// </summary>
         public void OpenCom()
         {
             SerialPort.Open();
@@ -123,13 +138,20 @@ namespace CardReader_CRT310
 
         #region Commands
         #region BaseSendCommand
+        /// <summary>
+        /// Sends an internal command nicely framed. (not required for you)
+        /// </summary>
+        /// <param name="Command"></param>
+        /// <param name="SubCommand"></param>
+        /// <param name="CommandData"></param>
+        /// <returns></returns>
         CRT310_PositiveResponseMessage SendCommand(byte Command, byte SubCommand, byte[] CommandData)
         {
             //the Message XOR check (XOR all all bytes and check against the last byte) 
             byte XORCheck = 0;
             //the High byte start will alway be 0
             byte LENH = 0;
-            //this will aways be the length of the extra attached data plus the 3 always included data for the command
+            //this will aways be the length of the extra attached data plus the 2 always included data for the command
             byte LENL = (byte)(CommandData.Length + 2);
             //this will all ways be the data plus 6 for frame data
             int MessageLength = LENL + 5;
@@ -188,8 +210,16 @@ namespace CardReader_CRT310
         }
         #endregion
 
+        /// <summary>
+        /// The init command to set up the reader
+        /// </summary>
+        /// <param name="InItParam">The action to perform with any left over cards</param>
+        /// <returns>The string with the reader and vers number</returns>
         public string ResetInitCommand(CRT310_Commands_InitParam InItParam = CRT310_Commands_InitParam.ResetAndReturnVersion)
         {
+            if (Disposed)
+                throw new Exception(DisposedError);
+
             string RevType;
             byte Command = (byte)Commands.Reset;
             byte CommandParameter = (byte)InItParam;
@@ -203,10 +233,16 @@ namespace CardReader_CRT310
             return RevType;
         }
 
+        /// <summary>
+        /// Get the status of the card reader (includes if card is inside) for polling
+        /// </summary>
+        /// <returns>a pakage with if there is a card inside and the status of the gates</returns>
         public CRT310_ReaderStatus ReaderStatus()
         {
             if (!Initialized)
                 throw new Exception(InitError);
+            if (Disposed)
+                throw new Exception(DisposedError);
             byte Command = (byte)Commands.CheckStatus;
             byte CommandParameter = (byte)CRT310_Commands_CardReaderStatusParam.ReaderStatus;
             byte[] CommandData = new byte[0];
@@ -216,10 +252,16 @@ namespace CardReader_CRT310
             return new CRT310_ReaderStatus((CRT310_CardStatus)Return.DataRaw[0], (CRT310_CardReaderFrontStatus)Return.DataRaw[1], (CRT310_CardReaderRearStatus)Return.DataRaw[2]);
         }
 
+        /// <summary>
+        /// Get the status of the card reader for polling
+        /// </summary>
+        /// <returns>A package with all the readers sensors</returns>
         public CRT310_SensorStatuss SensorStatus()
         {
             if (!Initialized)
                 throw new Exception(InitError);
+            if (Disposed)
+                throw new Exception(DisposedError);
             byte Command = (byte)Commands.CheckStatus;
             byte CommandParameter = (byte)CRT310_Commands_CardReaderStatusParam.SensorStatus;
             byte[] CommandData = new byte[0];
@@ -236,11 +278,18 @@ namespace CardReader_CRT310
             return new CRT310_SensorStatuss(Sensors, (CRT310_ShutterStatus)Return.DataRaw[5], (CRT310_SwitchStatus)Return.DataRaw[6]);
         }
 
+        /// <summary>
+        /// Moves the card to any of the postions or to eject (Front or back)
+        /// </summary>
+        /// <param name="Param">The postion to move to</param>
+        /// <returns>the status of the operation</returns>
         public CRT310_CardOperationStatus MoveCard(CRT310_Commands_MoveParam Param = CRT310_Commands_MoveParam.EjectCardFront)
         {
             if (!Initialized)
                 throw new Exception(InitError);
-            byte Command = (byte)Commands.CheckStatus;
+            if(Disposed)
+                throw new Exception(DisposedError);
+            byte Command = (byte)Commands.MoveCardOperation;
             byte CommandParameter = (byte)Param;
             byte[] CommandData = new byte[0];
 
@@ -248,10 +297,9 @@ namespace CardReader_CRT310
 
             return (CRT310_CardOperationStatus)Return.DataRaw[0];
         }
-
-
         #endregion
 
+        //Not important to you
         #region MessageDecoding
         #region BaseMessageDecode
         CRT310_BaseResponseMessage DecodeResponse(byte[] Message)
@@ -320,14 +368,22 @@ namespace CardReader_CRT310
         }
         #endregion
 
+        /// <summary>
+        /// standard dispose
+        /// </summary>
         public void Dispose()
         {
-            SerialPort?.Dispose();
+            Disposed = true;
+            SerialPort.Dispose();
         }
 
+        /// <summary>
+        /// A deconstructor to ensure resorces are freed.
+        /// </summary>
         ~CRT310_Com()
         {
-            SerialPort?.Dispose();
+            if(!Disposed)
+                SerialPort?.Dispose();
         }
     }
 }
