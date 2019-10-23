@@ -34,30 +34,32 @@ namespace TestConsole
             CRT591_MifareRF Card = CardStack.ConnectRFID() as CRT591_MifareRF;
             Thread.Sleep(300);
             Console.WriteLine($"ConnectResult:\n\tCardType:{Card.CardType}\n\tProtocol:{Card.Protocol}\n\tUDI:{BitConverter.ToString(Card.UDI)}\n\tSAK:{Card.ManufacturerSAKValue}\n\tATS:{(Card.ATS == null ? "Null" : Card.ATS.ToString())}");
+            Thread.Sleep(300);
             Console.WriteLine($"AthenticateResultOfBlock5:{Card.AthenticateKey(new byte[6] { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF }, 5, CRT591_MifareKeyTypes.KeyA)}");
+            Thread.Sleep(300);
             Console.WriteLine($"ReadResultResultOfBlock5:{Card.Read(5)}");
+            Thread.Sleep(300);
             Console.WriteLine($"WriteResultResultOfBlock5:{Card.Write(5, new byte[16] { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF })}");
+            Thread.Sleep(300);
             Console.WriteLine($"\tReadResultResultOfBlock5After:{Card.Read(5)}");
+            Thread.Sleep(300);
             Console.WriteLine($"WriteResultResultOfBlock5:{Card.Write(5, new byte[16] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 })}");
+            Thread.Sleep(300);
             Console.WriteLine($"\tReadResultResultOfBlock5After:{Card.Read(5)}");
+            Thread.Sleep(300);
             Console.WriteLine($"WriteValueResultResultOfBlock5:{Card.WriteValue(5, 5)}");
+            Thread.Sleep(300);
             Console.WriteLine($"\tReadValueResultResultOfBlock5After:{Card.ReadValue(5)}");
+            Thread.Sleep(300);
             Console.WriteLine($"IncrementValueResultResultOfBlock5:{Card.IncrementValue(5, 5)}");
+            Thread.Sleep(300);
             Console.WriteLine($"\tReadValueResultResultOfBlock5After:{Card.ReadValue(5)}");
+            Thread.Sleep(300);
             Console.WriteLine($"DecrementValueResultResultOfBlock5:{Card.DecrementValue(5, 5)}");
+            Thread.Sleep(300);
             Console.WriteLine($"\tReadValueResultResultOfBlock5After:{Card.ReadValue(5)}");
+            Thread.Sleep(300);
             CardStack.MoveCardCommand(CRT591_Commands_MoveCardParam.MoveCardToGate);
-
-            //    Console.WriteLine("Card Detected");
-            //    Console.WriteLine($"Card Info:\n\tAir Protocol:{e.CardInfo.AirProtocalID}\n\tAntennaID:{e.CardInfo.AntennaID}\n\tDSFID:{e.CardInfo.DSFID}\n\tTagID:{e.CardInfo.TagID}\n\tUID:{BitConverter.ToString(e.CardInfo.UID, 0, e.CardInfo.UIDlen)}");
-            //    ISO1443A_MifareClassic_NFCCard Card = e.Reader.ConnectAs_ISO14443A_MifareClassic_NFC(e.CardInfo);
-            //    Card.Athenthicate(0, new byte[6] { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF }, KeyTypes.KeyA);
-            //    Console.WriteLine("Successfuly athenticated block 0.");
-            //    Console.WriteLine($"{BitConverter.ToString(Card.ReadBlock(0))}");
-            //    Card.Athenthicate(5, new byte[6] { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF }, KeyTypes.KeyA);
-            //    Card.WriteValue(5, 500);
-            //    Console.WriteLine($"{BitConverter.ToString(Card.ReadBlock(5))}");
-            //    Console.WriteLine($"{Card.ReadValue(5)}");
             #endregion
 
             #region SudoTesting
@@ -99,7 +101,7 @@ namespace TestConsole
             //#region TestAthenticate
             //Task<CRT591_CardResponses> Task3 = new Task<CRT591_CardResponses>(() =>
             //{
-            //    return Card.AthenticateKey(new byte[6]{ 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF }, 12, CRT591_MifareKeyTypes.KeyA);
+            //    return Card.AthenticateKey(new byte[6] { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF }, 12, CRT591_MifareKeyTypes.KeyA);
             //});
             //Task3.Start();
             //Thread.Sleep(100);
@@ -129,6 +131,19 @@ namespace TestConsole
             //Reponse.Write(new byte[14] { CRT591_Com.STX, 0x00, 0x00, 0x08, 0x50, 0x60, 0x33, (byte)CRT591_CardStatus.CardStatus_NoCard, (byte)CRT591_CardStackStatus.StackStatus_FewCards, (byte)CTR591_ErrorCardBinStatus.ErrorCardBinStatus_NotFull, 0x90, 0x00, CRT591_Com.ETX, 0x5b }, 0, 14);
             //Console.WriteLine($"WriteResult:{Task5.Result}");
             //#endregion
+            //#region TestWrite
+            //Task<CRT591_CardResponses> Task6 = new Task<CRT591_CardResponses>(() =>
+            //{
+            //    return Card.WriteValue(3, 5);
+            //});
+            //Task6.Start();
+            //Thread.Sleep(100);
+            //Reponse.Write(new byte[] { CRT591_Com.ACK }, 0, 1);
+            //Reponse.Write(new byte[14] { CRT591_Com.STX, 0x00, 0x00, 0x08, 0x50, 0x60, 0x33, (byte)CRT591_CardStatus.CardStatus_NoCard, (byte)CRT591_CardStackStatus.StackStatus_FewCards, (byte)CTR591_ErrorCardBinStatus.ErrorCardBinStatus_NotFull, 0x90, 0x00, CRT591_Com.ETX, 0x5b }, 0, 14);
+            //Console.WriteLine($"WriteValueResult:{Task6.Result}");
+            //#endregion
+
+
             #endregion
             #endregion
 

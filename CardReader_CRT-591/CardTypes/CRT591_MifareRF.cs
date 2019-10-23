@@ -130,7 +130,7 @@ namespace CardReader_CRT_591
 
         public CRT591_CardResponses WriteValue(byte BlockAddress, Int32 Data)
         {
-            if (Data <= Int32.MaxValue || Data >= Int32.MinValue)
+            if (Data > Int32.MaxValue || Data < Int32.MinValue)
                 throw new Exception("Write data must be within a int sixteen max and min values");
             byte[] CardCommandData = new byte[9];
             CardCommandData[0] = 0x00;
@@ -183,7 +183,7 @@ namespace CardReader_CRT_591
 
         public CRT591_CardResponses IncrementValue(byte BlockAddress, Int32 Data)
         {
-            if (Data <= Int32.MaxValue || Data >= Int32.MinValue)
+            if (Data > Int32.MaxValue || Data < Int32.MinValue)
                 throw new Exception("Write data must be within a int sixteen max and min values");
             byte[] CardCommandData = new byte[9];
             CardCommandData[0] = 0x00;
@@ -210,7 +210,7 @@ namespace CardReader_CRT_591
 
         public CRT591_CardResponses DecrementValue(byte BlockAddress, Int32 Data)
         {
-            if (Data <= Int32.MaxValue || Data >= Int32.MinValue)
+            if (Data > Int32.MaxValue || Data < Int32.MinValue)
                 throw new Exception("Write data must be within a int sixteen max and min values");
             byte[] CardCommandData = new byte[9];
             CardCommandData[0] = 0x00;
