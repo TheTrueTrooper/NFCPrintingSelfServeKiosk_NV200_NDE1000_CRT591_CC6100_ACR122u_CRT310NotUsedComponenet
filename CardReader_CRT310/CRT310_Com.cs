@@ -1,7 +1,9 @@
-﻿using System;
+﻿using CardReader_CRT310.Events;
+using System;
 using System.Collections.Generic;
 using System.IO.Ports;
 using System.Text;
+using System.Threading;
 
 namespace CardReader_CRT310
 {
@@ -29,6 +31,10 @@ namespace CardReader_CRT310
 
         const string InitError = "Reader has not been Initialized. Please call 'SendResetInitCommand' to Initialize before use.";
         const string DisposedError = "Reader has already been disposed and marked for clean up.";
+
+        Thread ListeningThread;
+
+        CardEntered CardEnteredHandle;
 
         /// <summary>
         /// Start of Text Message
@@ -119,13 +125,60 @@ namespace CardReader_CRT310
             }
         }
 
+        public bool EventListenAsOpposedToPoll
+        {
+            get; private set;
+        }
+
         /// <summary>
         /// Creates a reader and its commands
         /// </summary>
         /// <param name="SerialPortName"></param>
-        public CRT310_Com(string SerialPortName)
+        public CRT310_Com(string SerialPortName, bool EventListenAsOpposedToPoll = true)
         {
             SerialPort = new SerialPort(SerialPortName, BaudRate, Parity.None, DataSize, StopBits.One);
+
+            if (EventListenAsOpposedToPoll)
+            {
+                ListeningThread = new Thread(new ParameterizedThreadStart(ListeningLoop));
+                ListeningThread.Start(this);
+            }
+
+            this.EventListenAsOpposedToPoll = EventListenAsOpposedToPoll;
+        }
+
+        private static void ListeningLoop(object obj)
+        {
+            CRT310_Com CardReader = (CRT310_Com)obj;
+            CRT310_CardStatus LastStatus;
+            CRT310_CardStatus CurrentStatus;
+            while (CardReader.EventListenAsOpposedToPoll)
+            {
+                if (CardReader.Initialized)
+                {
+                    lock (CardReader)
+                        LastStatus = CardReader.ReaderStatus().CardStatus;
+
+
+                    while (CardReader.EventListenAsOpposedToPoll)
+                    {
+                        Thread.Sleep(300);
+
+                        lock (CardReader)
+                            CurrentStatus = CardReader.ReaderStatus().CardStatus;
+
+                        if (CurrentStatus != CRT310_CardStatus.NoCardInTheReader && CurrentStatus != LastStatus)
+                        {
+                            Thread.Sleep(300);
+                            lock (CardReader)
+                                CardReader.CardEnteredHandle?.Invoke(CardReader, new CardEnteredEventArgs(CardReader));
+                        }
+
+                        if (CurrentStatus != LastStatus)
+                            LastStatus = CurrentStatus;
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -374,6 +427,7 @@ namespace CardReader_CRT310
         public void Dispose()
         {
             Disposed = true;
+            EventListenAsOpposedToPoll = false;
             SerialPort.Dispose();
         }
 

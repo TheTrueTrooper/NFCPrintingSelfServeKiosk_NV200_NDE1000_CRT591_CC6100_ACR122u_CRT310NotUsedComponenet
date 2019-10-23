@@ -46,6 +46,8 @@
     <Compile Include="CRT310_Errors.cs" />
     <Compile Include="CRTCommandEnums\CRT310_Commands_MoveParam.cs" />
     <Compile Include="CRTEnums\CRT310_CardOperationStatus.cs" />
+    <Compile Include="Events\CardEnteredEventArgs.cs" />
+    <Compile Include="Events\Events.cs" />
     <Compile Include="StatusPackages\CRT310_SensorStatuss.cs" />
     <Compile Include="StatusPackages\CRT310_ReaderStatus.cs" />
     <Compile Include="CRTCommandEnums\CRT310_Commands_CardReaderStatusParam.cs" />

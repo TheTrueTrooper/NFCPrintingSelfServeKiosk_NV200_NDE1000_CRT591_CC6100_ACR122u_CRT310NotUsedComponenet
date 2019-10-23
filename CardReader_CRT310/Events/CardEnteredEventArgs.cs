@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace CardReader_CRT310.Events
 {
-    class CardEnteredEventArgs
+    public class CardEnteredEventArgs : EventArgs
     {
+        public CRT310_Com CardReader { private set; get; }
+
+        internal CardEnteredEventArgs(CRT310_Com CardReader)
+        {
+            this.CardReader = CardReader;
+        }
     }
 }
