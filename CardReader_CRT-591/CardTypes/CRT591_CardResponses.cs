@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CardReader_CRT_591
 {
-    enum CRT591_CardResponses
+    public enum CRT591_CardResponses
     {
         Success = 0x90,
         Fail = 0x6F,

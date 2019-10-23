@@ -192,17 +192,17 @@ namespace CardReader_CRT_591
             else if (Ack != ACK)
                 throw new Exception("Error unexpected value recived for ACK and NAK");
 
+            XORCheck = 0;
+
             List<byte> Response = new List<byte>();
-            byte Char;
+            byte Char = 0;
             do
             {
+                XORCheck ^= Char;
                 Char = (byte)SerialPort.ReadByte();
                 Response.Add(Char);
             }
-            while (Response.Count < 5 || Response[Response.Count - 1] != ETX);
-
-            Char = (byte)SerialPort.ReadByte();
-            Response.Add(Char);
+            while (Response.Count < 5 || Response[Response.Count - 2] != ETX || Response[Response.Count - 1] != XORCheck);
 
             CRT591_BaseResponseMessage Return = DecodeResponse(Response.ToArray());
 
@@ -460,7 +460,7 @@ namespace CardReader_CRT_591
         /// <param name="FirstProtocol">The T0 and T1 protocols to read with(leave defualt unless you know what you are doing)</param>
         /// <param name="SecondProtocol">The T0 and T1 protocols to fall back on(leave defualt unless you know what you are doing)</param>
         /// <returns></returns>
-        CRT591_ICard ConnectRFID(CRT591_RFProtocols FirstProtocol = CRT591_RFProtocols.TypeA, CRT591_RFProtocols SecondProtocol = CRT591_RFProtocols.TypeB)
+        public CRT591_ICard ConnectRFID(CRT591_RFProtocols FirstProtocol = CRT591_RFProtocols.TypeA, CRT591_RFProtocols SecondProtocol = CRT591_RFProtocols.TypeB)
         {
             byte[] CommandData = new byte[] { (byte)FirstProtocol, (byte)SecondProtocol };
             //byte[] CommandData = new byte[0];
@@ -471,14 +471,21 @@ namespace CardReader_CRT_591
             CRT591_RFProtocols CardProtocol = (CRT591_RFProtocols)CardData[0];
             if (CardProtocol == CRT591_RFProtocols.TypeA || CardProtocol == CRT591_RFProtocols.PhilpsMifareOneCardProtocol)
             {
-                Int16 ATQA = BitConverter.ToInt16(CardData, 1);//takes [1][2];
+                short ATQA = BitConverter.ToInt16(CardData, 1);//takes [1][2];
+                if (BitConverter.IsLittleEndian)
+                {
+                    byte[] IntReversed = BitConverter.GetBytes(ATQA);
+                    IntReversed = IntReversed.Reverse().ToArray();
+                    ATQA = BitConverter.ToInt16(IntReversed, 0);
+                }
+
                 CRT591_MifareRFTypes CardType = (CRT591_MifareRFTypes)ATQA;//takes [1][2];
                 byte UIDLength = CardData[3];
 
                 byte[] UID = new byte[UIDLength];
                 Array.Copy(CardData, 4, UID, 0, UIDLength);
 
-                byte ManufacturerSAKValue = CardData[5 + UIDLength];
+                byte ManufacturerSAKValue = CardData[5 + UIDLength - 1];
 
                 byte? ATS = null;
                 if (CardProtocol == CRT591_RFProtocols.TypeA)

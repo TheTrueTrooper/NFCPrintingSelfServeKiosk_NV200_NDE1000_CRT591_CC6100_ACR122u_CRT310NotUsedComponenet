@@ -1,6 +1,6 @@
 ﻿namespace CardReader_CRT_591
 {
-    enum CRT591_RFProtocols
+    public enum CRT591_RFProtocols
     {
         Decativated = 0x30,
         TypeA = 0x41,

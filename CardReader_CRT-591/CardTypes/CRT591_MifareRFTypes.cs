@@ -1,6 +1,6 @@
 ﻿namespace CardReader_CRT_591
 {
-    enum CRT591_MifareRFTypes
+    public enum CRT591_MifareRFTypes
     {
         DeactivatedRFOrNoCard,
         MifareS50 = 0x0004,

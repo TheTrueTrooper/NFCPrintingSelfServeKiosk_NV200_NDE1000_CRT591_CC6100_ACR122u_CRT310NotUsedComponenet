@@ -8,17 +8,17 @@ namespace CardReader_CRT_591
 {
     public class CRT591_MifareRF : CRT591_ICard
     {
-        CRT591_Com OwningReader;
+        public CRT591_Com OwningReader { private set; get; }
 
-        byte[] UDI;
+        public byte[] UDI { private set; get; }
 
-        CRT591_RFProtocols Protocol;
+        public CRT591_RFProtocols Protocol { private set; get; }
 
-        CRT591_MifareRFTypes CardType;
+        public CRT591_MifareRFTypes CardType { private set; get; }
 
-        byte ManufacturerSAKValue;
+        public byte ManufacturerSAKValue { private set; get; }
 
-        byte? ATS;
+        public byte? ATS { private set; get; }
 
         internal CRT591_MifareRF(CRT591_Com OwningReader, byte[] UDI, CRT591_RFProtocols Protocol, CRT591_MifareRFTypes CardType, byte ManufacturerSAKValue, byte? ATS = null)
         {
@@ -30,12 +30,12 @@ namespace CardReader_CRT_591
             this.ManufacturerSAKValue = ManufacturerSAKValue;
         }
 
-        void DeactivateCard()
+        public void DeactivateCard()
         {
             OwningReader.SendRFCardControl(CRT591_Commands_MifareRFOperationParam.PowerDown);
         }
 
-        CRT591_MifareRFTypes InquireStatusRFID()
+        public CRT591_MifareRFTypes InquireStatusRFID()
         {
             CRT591_PositiveResponseMessage Reponse = OwningReader.SendRFCardControl(CRT591_Commands_MifareRFOperationParam.OperationStatusCheck);
             string Value = "";
@@ -60,7 +60,7 @@ namespace CardReader_CRT_591
             return CRT591_MifareRFTypes.DeactivatedRFOrNoCard;
         }
 
-        CRT591_CardResponses VerifyKey(byte[] Key, byte BlockAddress, CRT591_MifareKeyTypes KeySelect)
+        public CRT591_CardResponses AthenticateKey(byte[] Key, byte BlockAddress, CRT591_MifareKeyTypes KeySelect)
         {
             if (Key == null || Key.Length != 6)
                 throw new Exception("Key must be six bytes in length");
@@ -82,8 +82,9 @@ namespace CardReader_CRT_591
             throw new CRT591_MifareRF_Exception(Reuslt);
         }
 
-        byte[] Read(byte BlockAddress)
+        public byte[] Read(byte BlockAddress)
         {
+            byte[] Return = new byte[16];
             byte[] CardCommandData = new byte[5];
             CardCommandData[0] = 0x00;
             CardCommandData[1] = 0xB0;
@@ -93,14 +94,18 @@ namespace CardReader_CRT_591
 
             CRT591_PositiveResponseMessage Reponse = OwningReader.SendRFCardControl(CRT591_Commands_MifareRFOperationParam.MifareStandardReadWrite, CardCommandData);
 
-            CRT591_CardResponses Reuslt = (CRT591_CardResponses)Reponse.DataRaw[0];
+            CRT591_CardResponses Reuslt = (CRT591_CardResponses)Reponse.DataRaw[Reponse.DataRaw.Length - 2];
+
             if (Reuslt == CRT591_CardResponses.Success)
-                return Reponse.DataRaw;
+            {
+                Array.Copy(Reponse.DataRaw, 0, Return, 0, Reponse.DataRaw.Length - 2);
+                return Return;
+            }
 
             throw new CRT591_MifareRF_Exception(Reuslt);
         }
 
-        CRT591_CardResponses Write(byte BlockAddress, byte[] Data)
+        public CRT591_CardResponses Write(byte BlockAddress, byte[] Data)
         {
             if (Data == null || Data.Length != 16)
                 throw new Exception("Write data must be sixteen bytes in length");
@@ -123,7 +128,7 @@ namespace CardReader_CRT_591
             throw new CRT591_MifareRF_Exception(Reuslt);
         }
 
-        CRT591_CardResponses WriteValue(byte BlockAddress, Int32 Data)
+        public CRT591_CardResponses WriteValue(byte BlockAddress, Int32 Data)
         {
             if (Data <= Int32.MaxValue || Data >= Int32.MinValue)
                 throw new Exception("Write data must be within a int sixteen max and min values");
@@ -135,6 +140,8 @@ namespace CardReader_CRT_591
             CardCommandData[4] = 0x04; //assume one block as this is the way most readers are
 
             byte[] DataAsBytes = BitConverter.GetBytes(Data);
+            if (BitConverter.IsLittleEndian)
+                DataAsBytes = DataAsBytes.Reverse().ToArray();
 
             Array.Copy(DataAsBytes, 0, CardCommandData, 5, DataAsBytes.Length);
 
@@ -148,7 +155,7 @@ namespace CardReader_CRT_591
             throw new CRT591_MifareRF_Exception(Reuslt);
         }
 
-        Int32 ReadValue(byte BlockAddress)
+        public Int32 ReadValue(byte BlockAddress)
         {
             byte[] CardCommandData = new byte[4];
             CardCommandData[0] = 0x00;
@@ -158,14 +165,23 @@ namespace CardReader_CRT_591
 
             CRT591_PositiveResponseMessage Reponse = OwningReader.SendRFCardControl(CRT591_Commands_MifareRFOperationParam.MifareStandardReadWrite, CardCommandData);
 
-            CRT591_CardResponses Reuslt = (CRT591_CardResponses)Reponse.DataRaw[0];
+            CRT591_CardResponses Reuslt = (CRT591_CardResponses)Reponse.DataRaw[Reponse.DataRaw.Length - 2];
+
+
             if (Reuslt == CRT591_CardResponses.Success)
-                return BitConverter.ToInt32(Reponse.DataRaw, 0);
+            {
+                byte[] IntBytes = new byte[4];
+                Array.Copy(Reponse.DataRaw, 0, IntBytes, 0, IntBytes.Length);
+                if (BitConverter.IsLittleEndian)
+                    IntBytes = IntBytes.Reverse().ToArray();
+
+                return BitConverter.ToInt32(IntBytes, 0);
+            }
 
             throw new CRT591_MifareRF_Exception(Reuslt);
         }
 
-        CRT591_CardResponses IncrementValue(byte BlockAddress, Int32 Data)
+        public CRT591_CardResponses IncrementValue(byte BlockAddress, Int32 Data)
         {
             if (Data <= Int32.MaxValue || Data >= Int32.MinValue)
                 throw new Exception("Write data must be within a int sixteen max and min values");
@@ -177,6 +193,8 @@ namespace CardReader_CRT_591
             CardCommandData[4] = 0x04; //assume one block as this is the way most readers are
 
             byte[] DataAsBytes = BitConverter.GetBytes(Data);
+            if (BitConverter.IsLittleEndian)
+                DataAsBytes = DataAsBytes.Reverse().ToArray();
 
             Array.Copy(DataAsBytes, 0, CardCommandData, 5, DataAsBytes.Length);
 
@@ -190,7 +208,7 @@ namespace CardReader_CRT_591
             throw new CRT591_MifareRF_Exception(Reuslt);
         }
 
-        CRT591_CardResponses DecrementValue(byte BlockAddress, Int32 Data)
+        public CRT591_CardResponses DecrementValue(byte BlockAddress, Int32 Data)
         {
             if (Data <= Int32.MaxValue || Data >= Int32.MinValue)
                 throw new Exception("Write data must be within a int sixteen max and min values");
@@ -202,6 +220,8 @@ namespace CardReader_CRT_591
             CardCommandData[4] = 0x04; //assume one block as this is the way most readers are
 
             byte[] DataAsBytes = BitConverter.GetBytes(Data);
+            if (BitConverter.IsLittleEndian)
+                DataAsBytes = DataAsBytes.Reverse().ToArray();
 
             Array.Copy(DataAsBytes, 0, CardCommandData, 5, DataAsBytes.Length);
 
