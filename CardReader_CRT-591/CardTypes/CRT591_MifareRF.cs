@@ -73,7 +73,6 @@ namespace CardReader_CRT_591
 
             Array.Copy(Key, 0, CardCommandData, 5, Key.Length);
 
-
             CRT591_PositiveResponseMessage Reponse = OwningReader.SendRFCardControl(CRT591_Commands_MifareRFOperationParam.MifareStandardReadWrite, CardCommandData);
 
             CRT591_CardResponses Reuslt = (CRT591_CardResponses)Reponse.DataRaw[0];
