@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO.Ports;
+using CardReader_CRT_591.RFCards;
 
 namespace CardReader_CRT_591
 {
@@ -31,6 +32,8 @@ namespace CardReader_CRT_591
         }
 
         bool Initialized = false;
+
+        CRT591_ICard ConnectedCard;
 
         /// <summary>
         /// A error message if the address 
@@ -460,7 +463,7 @@ namespace CardReader_CRT_591
         /// <param name="FirstProtocol">The T0 and T1 protocols to read with(leave defualt unless you know what you are doing)</param>
         /// <param name="SecondProtocol">The T0 and T1 protocols to fall back on(leave defualt unless you know what you are doing)</param>
         /// <returns></returns>
-        public CRT591_ICard ConnectRFID(CRT591_RFProtocols FirstProtocol = CRT591_RFProtocols.TypeA, CRT591_RFProtocols SecondProtocol = CRT591_RFProtocols.TypeB)
+        public CRT591_IRFCard ConnectRFID(CRT591_RFProtocols FirstProtocol = CRT591_RFProtocols.TypeA, CRT591_RFProtocols SecondProtocol = CRT591_RFProtocols.TypeB)
         {
             byte[] CommandData = new byte[] { (byte)FirstProtocol, (byte)SecondProtocol };
             //byte[] CommandData = new byte[0];
@@ -493,7 +496,11 @@ namespace CardReader_CRT_591
                     ATS = CardData[6 + UIDLength];
                 }
 
-                return new CRT591_MifareRF(this, UID, CardProtocol, CardType, ManufacturerSAKValue, ATS);
+                if (CardType == CRT591_MifareRFTypes.MifareS50)
+                {
+                    ConnectedCard = new CRT591_MifareRFClassic1KS50(this, UID, CardProtocol, CardType, ManufacturerSAKValue, ATS);
+                    return ConnectedCard as CRT591_MifareRF;
+                }
             }
 
             throw new NotImplementedException("The card type is of an non-reconized type not supported by the software or machine.");
@@ -585,7 +592,7 @@ namespace CardReader_CRT_591
         }
 #endregion
 
-#region helpers
+        #region helpers
         CRT591_CardStatus GetCardStatus(byte In)
         {
             switch (In)
@@ -628,7 +635,13 @@ namespace CardReader_CRT_591
                     return CTR591_ErrorCardBinStatus.ErrorCardBinStatus_Unkown;
             }
         }
-#endregion
+
+        internal void NotifyOfChildsDestruction()
+        {
+
+        }
+        #endregion
+
 
         public void Dispose()
         {

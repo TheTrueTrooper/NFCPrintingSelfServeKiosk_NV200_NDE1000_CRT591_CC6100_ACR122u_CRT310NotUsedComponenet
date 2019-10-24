@@ -371,8 +371,6 @@ namespace CardReader_CRT310
             byte LENH = 0x00;
             byte LENL = 0x03;
 
-            byte MessageAddress = 0x00;
-
             //if the message is not a message return unknown
             if (Message[0] != STX)
                 return new CRT310_BaseResponseMessage(CRT310_MessageResponseStatus.UnkownFormateAssumedNotFor);

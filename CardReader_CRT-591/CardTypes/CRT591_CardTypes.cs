@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace CardReader_CRT_591
 {
-    public enum CRT591_CardResponses
+    public enum CRT591_CardTypes
     {
-        Success = 0x90,
-        Fail = 0x6F,
-        AddressOverflow = 0x6B,
-        OperationLengthOverflow = 0x67
+        RFCard,
+        CPUCard,
+        SamCard,
+        SLE4442And4428,
+        ICMemoryCard
     }
 }

@@ -42,13 +42,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CardTypes\CRT591_CardResponses.cs" />
+    <Compile Include="CardTypes\RFCards\CRT591_RFCardResponses.cs" />
+    <Compile Include="CardTypes\CRT591_CardTypes.cs" />
     <Compile Include="CardTypes\CRT591_ICard.cs" />
-    <Compile Include="CardTypes\CRT591_MifareKeyTypes.cs" />
-    <Compile Include="CardTypes\CRT591_MifareRF.cs" />
-    <Compile Include="CardTypes\CRT591_MifareRF_Exception.cs" />
-    <Compile Include="CardTypes\CRT591_RFProtocols.cs" />
-    <Compile Include="CardTypes\CRT591_MifareRFTypes.cs" />
+    <Compile Include="CardTypes\RFCards\CRT591_IRFCard.cs" />
+    <Compile Include="CardTypes\RFCards\CRT591_RFMifareKeyTypes.cs" />
+    <Compile Include="CardTypes\RFCards\CRT591_MifareRF.cs" />
+    <Compile Include="CardTypes\RFCards\CRT591_MifareRF_Exception.cs" />
+    <Compile Include="CardTypes\RFCards\CRT591_RFProtocols.cs" />
+    <Compile Include="CardTypes\RFCards\CRT591_MifareRFTypes.cs" />
+    <Compile Include="CardTypes\RFCards\RFCardSubTypes\CRT591_MifareRFClassic1KS50.cs" />
     <Compile Include="CRT591_CommandException.cs" />
     <Compile Include="CRTCommandEnums\CRT591_Commands_24C01To24C256COperationParam.cs" />
     <Compile Include="CRTCommandEnums\CRT591_Commands_CheckTypeRForICParam.cs" />
