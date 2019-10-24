@@ -89,12 +89,22 @@ namespace CardReader_CRT_591.RFCards
 
         public virtual byte[] Read(byte GlobalBlockAddress)
         {
+            return BaseRead(GlobalBlockAddress);
+        }
+
+        protected byte[] BaseRead(byte GlobalBlockAddress)
+        {
             byte Sector = (byte)(GlobalBlockAddress / 4); 
             byte BlockAddress = (byte)(GlobalBlockAddress % 4);
-            return Read(Sector, BlockAddress);
+            return BaseRead(Sector, BlockAddress);
         }
 
         public virtual byte[] Read(byte Sector, byte BlockAddress)
+        {
+            return BaseRead(Sector, BlockAddress);
+        }
+
+        protected byte[] BaseRead(byte Sector, byte BlockAddress)
         {
             byte[] Return = new byte[16];
             byte[] CardCommandData = new byte[5];
@@ -119,12 +129,22 @@ namespace CardReader_CRT_591.RFCards
 
         public virtual CRT591_RFCardResponses Write(byte GlobalBlockAddress, byte[] Data)
         {
+            return BaseWrite(GlobalBlockAddress, Data);
+        }
+
+        protected CRT591_RFCardResponses BaseWrite(byte GlobalBlockAddress, byte[] Data)
+        {
             byte Sector = (byte)(GlobalBlockAddress / 4);
             byte BlockAddress = (byte)(GlobalBlockAddress % 4);
-            return Write(Sector, BlockAddress, Data);
+            return BaseWrite(Sector, BlockAddress, Data);
         }
 
         public virtual CRT591_RFCardResponses Write(byte Sector, byte BlockAddress, byte[] Data)
+        {
+            return BaseWrite(Sector, BlockAddress, Data);
+        }
+
+        protected CRT591_RFCardResponses BaseWrite(byte Sector, byte BlockAddress, byte[] Data)
         {
             if (Data == null || Data.Length != 16)
                 throw new Exception("Write data must be sixteen bytes in length");
@@ -149,12 +169,22 @@ namespace CardReader_CRT_591.RFCards
 
         public virtual CRT591_RFCardResponses WriteValue(byte GlobalBlockAddress, Int32 Data)
         {
+            return BaseWriteValue(GlobalBlockAddress, Data);
+        }
+
+        protected CRT591_RFCardResponses BaseWriteValue(byte GlobalBlockAddress, Int32 Data)
+        {
             byte Sector = (byte)(GlobalBlockAddress / 4);
             byte BlockAddress = (byte)(GlobalBlockAddress % 4);
-            return WriteValue(Sector, BlockAddress, Data);
+            return BaseWriteValue(Sector, BlockAddress, Data);
         }
 
         public virtual CRT591_RFCardResponses WriteValue(byte Sector, byte BlockAddress, Int32 Data)
+        {
+            return BaseWriteValue(Sector, BlockAddress, Data);
+        }
+
+        protected CRT591_RFCardResponses BaseWriteValue(byte Sector, byte BlockAddress, Int32 Data)
         {
             if (Data > Int32.MaxValue || Data < Int32.MinValue)
                 throw new Exception("Write data must be within a int sixteen max and min values");
@@ -183,12 +213,22 @@ namespace CardReader_CRT_591.RFCards
 
         public virtual Int32 ReadValue(byte GlobalBlockAddress)
         {
+            return BaseReadValue(GlobalBlockAddress);
+        }
+
+        protected Int32 BaseReadValue(byte GlobalBlockAddress)
+        {
             byte Sector = (byte)(GlobalBlockAddress / 4);
             byte BlockAddress = (byte)(GlobalBlockAddress % 4);
-            return ReadValue(Sector, BlockAddress);
+            return BaseReadValue(Sector, BlockAddress);
         }
 
         public virtual Int32 ReadValue(byte Sector, byte BlockAddress)
+        {
+            return BaseReadValue(Sector, BlockAddress);
+        }
+
+        protected Int32 BaseReadValue(byte Sector, byte BlockAddress)
         {
             byte[] CardCommandData = new byte[4];
             CardCommandData[0] = 0x00;
@@ -216,12 +256,22 @@ namespace CardReader_CRT_591.RFCards
 
         public virtual CRT591_RFCardResponses IncrementValue(byte GlobalBlockAddress, Int32 Data)
         {
+            return BaseIncrementValue(GlobalBlockAddress, Data);
+        }
+
+        protected CRT591_RFCardResponses BaseIncrementValue(byte GlobalBlockAddress, Int32 Data)
+        {
             byte Sector = (byte)(GlobalBlockAddress / 4);
             byte BlockAddress = (byte)(GlobalBlockAddress % 4);
-            return IncrementValue(Sector, BlockAddress, Data);
+            return BaseIncrementValue(Sector, BlockAddress, Data);
         }
 
         public virtual CRT591_RFCardResponses IncrementValue(byte Sector, byte BlockAddress, Int32 Data)
+        {
+            return BaseIncrementValue(Sector, BlockAddress, Data);
+        }
+
+        protected CRT591_RFCardResponses BaseIncrementValue(byte Sector, byte BlockAddress, Int32 Data)
         {
             if (Data > Int32.MaxValue || Data < Int32.MinValue)
                 throw new Exception("Write data must be within a int sixteen max and min values");
@@ -247,14 +297,25 @@ namespace CardReader_CRT_591.RFCards
 
             throw new CRT591_MifareRF_Exception(Reuslt);
         }
+
         public virtual CRT591_RFCardResponses DecrementValue(byte GlobalBlockAddress, Int32 Data)
+        {
+            return BaseDecrementValue(GlobalBlockAddress, Data);
+        }
+
+        protected CRT591_RFCardResponses BaseDecrementValue(byte GlobalBlockAddress, Int32 Data)
         {
             byte Sector = (byte)(GlobalBlockAddress / 4);
             byte BlockAddress = (byte)(GlobalBlockAddress % 4);
-            return DecrementValue(Sector, BlockAddress, Data);
+            return BaseDecrementValue(Sector, BlockAddress, Data);
         }
 
         public virtual CRT591_RFCardResponses DecrementValue(byte Sector, byte BlockAddress, Int32 Data)
+        {
+            return BaseDecrementValue(Sector, BlockAddress, Data);
+        }
+
+        protected CRT591_RFCardResponses BaseDecrementValue(byte Sector, byte BlockAddress, Int32 Data)
         {
             if (Data > Int32.MaxValue || Data < Int32.MinValue)
                 throw new Exception("Write data must be within a int sixteen max and min values");
