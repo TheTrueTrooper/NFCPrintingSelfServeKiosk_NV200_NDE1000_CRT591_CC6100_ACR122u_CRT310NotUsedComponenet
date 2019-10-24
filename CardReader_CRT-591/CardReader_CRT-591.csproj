@@ -65,6 +65,7 @@
     <Compile Include="CRTCommandEnums\CRT591_Commands_SetCardEntryParam.cs" />
     <Compile Include="CRTCommandEnums\CRT591_Commands_SLEOperationParam.cs" />
     <Compile Include="CRTEnums\CRT591_SensorStatus.cs" />
+    <Compile Include="CRTEnums\CRT591_ReaderStatus.cs" />
     <Compile Include="Responses\CRT591_NegativeResponseMessage.cs" />
     <Compile Include="Responses\CRT591_BaseResponseMessage.cs" />
     <Compile Include="CRT591_Com.cs" />

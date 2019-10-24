@@ -1,6 +1,6 @@
 ﻿namespace CardReader_CRT_591
 {
-    public enum CRT591_Commands_24C01To24C256COperationParam
+    internal enum CRT591_Commands_24C01To24C256COperationParam
     {
         ICReset = 0x30,
         ICPowerDown = 0x31,

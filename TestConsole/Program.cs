@@ -20,51 +20,73 @@ namespace TestConsole
             // Press Ctrl+F5 (or go to Debug > Start Without Debugging) to run your app.
             #region CardStackTesting
             #region RealTesting
-            //string Com;
-            //using (StreamReader SR = new StreamReader($"{Environment.CurrentDirectory}\\Com.txt"))
-            //    Com = SR.ReadToEnd();
-            //CRT591_Com CardStack = new CRT591_Com(Com);
-            //CardStack.OpenCom();
-            //Thread.Sleep(300);
-            //Console.WriteLine(CardStack.ResetInitCommand(CRT591_Commands_InitParam.MoveCardToHolding));
-            //Thread.Sleep(500);
-            //CardStack.MoveCardCommand(CRT591_Commands_MoveCardParam.MoveCardToRF);
-            //Thread.Sleep(300);
-            //CRT591_MifareRF Card = CardStack.ConnectRFID() as CRT591_MifareRF;
-            //Thread.Sleep(300);
-            //Console.WriteLine($"ConnectResult:\n\tCardType:{Card.CardType}\n\tProtocol:{Card.Protocol}\n\tUDI:{BitConverter.ToString(Card.UDI)}\n\tSAK:{Card.ManufacturerSAKValue}\n\tATS:{(Card.ATS == null ? "Null" : Card.ATS.ToString())}");
-            //Thread.Sleep(300);
-            //Console.WriteLine($"AthenticateResultOfBlock5:{Card.AthenticateKey(new byte[6] { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF }, 5, CRT591_RFMifareKeyTypes.KeyA)}");
-            //Thread.Sleep(300);
-            //Console.WriteLine($"ReadResultResultOfBlock5:{Card.Read(5)}");
-            //Thread.Sleep(300);
-            //Console.WriteLine($"WriteResultResultOfBlock5:{Card.Write(5, new byte[16] { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF })}");
-            //Thread.Sleep(300);
-            //Console.WriteLine($"\tReadResultResultOfBlock5After:{Card.Read(5)}");
-            //Thread.Sleep(300);
-            //Console.WriteLine($"WriteResultResultOfBlock5:{Card.Write(5, new byte[16] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 })}");
-            //Thread.Sleep(300);
-            //Console.WriteLine($"\tReadResultResultOfBlock5After:{Card.Read(5)}");
-            //Thread.Sleep(300);
-            //Console.WriteLine($"WriteValueResultResultOfBlock5:{Card.WriteValue(5, 5)}");
-            //Thread.Sleep(300);
-            //Console.WriteLine($"\tReadValueResultResultOfBlock5After:{Card.ReadValue(5)}");
-            //Thread.Sleep(300);
-            //Console.WriteLine($"IncrementValueResultResultOfBlock5:{Card.IncrementValue(5, 5)}");
-            //Thread.Sleep(300);
-            //Console.WriteLine($"\tReadValueResultResultOfBlock5After:{Card.ReadValue(5)}");
-            //Thread.Sleep(300);
-            //Console.WriteLine($"DecrementValueResultResultOfBlock5:{Card.DecrementValue(5, 5)}");
-            //Thread.Sleep(300);
-            //Console.WriteLine($"\tReadValueResultResultOfBlock5After:{Card.ReadValue(5)}");
-            //Thread.Sleep(300);
-            //CardStack.MoveCardCommand(CRT591_Commands_MoveCardParam.MoveCardToGate);
+            //using (StreamWriter WR = new StreamWriter($"{Environment.CurrentDirectory}\\ErrorOutput.txt"))
+            //{
+            //    try
+            //    {
+            //        string Com;
+            //        using (StreamReader SR = new StreamReader($"{Environment.CurrentDirectory}\\Com.txt"))
+            //            Com = SR.ReadToEnd();
+            //        CRT591_Com CardStack = new CRT591_Com(Com);
+            //        CardStack.OpenCom();
+            //        Thread.Sleep(300);
+            //        Console.WriteLine(CardStack.ResetInitCommand(CRT591_Commands_InitParam.MoveCardToHolding));
+            //        Thread.Sleep(500);
+            //        CardStack.MoveCardCommand(CRT591_Commands_MoveCardParam.MoveCardToRF);
+            //        Thread.Sleep(300);
+            //        CRT591_MifareRF Card = CardStack.ConnectRFID() as CRT591_MifareRF;
+            //        Thread.Sleep(300);
+            //        Console.WriteLine($"ConnectResult:\n\tCardType:{Card.CardType}\n\tProtocol:{Card.Protocol}\n\tUDI:{BitConverter.ToString(Card.UDI)}\n\tSAK:{Card.ManufacturerSAKValue}\n\tATS:{(Card.ATS == null ? "Null" : Card.ATS.ToString())}");
+            //        WR.WriteLine($"ConnectResult:\n\tCardType:{Card.CardType}\n\tProtocol:{Card.Protocol}\n\tUDI:{BitConverter.ToString(Card.UDI)}\n\tSAK:{Card.ManufacturerSAKValue}\n\tATS:{(Card.ATS == null ? "Null" : Card.ATS.ToString())}");
+            //        Thread.Sleep(300);
+            //        Console.WriteLine($"AthenticateResultOfBlock5:{Card.AthenticateKey(new byte[6] { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF }, 5, CRT591_RFMifareKeyTypes.KeyA)}");
+            //        WR.WriteLine($"AthenticateResultOfBlock5:{Card.AthenticateKey(new byte[6] { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF }, 5, CRT591_RFMifareKeyTypes.KeyA)}");
+            //        Thread.Sleep(300);
+            //        Console.WriteLine($"ReadResultResultOfBlock5:{Card.Read(5)}");
+            //        WR.WriteLine($"ReadResultResultOfBlock5:{Card.Read(5)}");
+            //        Thread.Sleep(300);
+            //        Console.WriteLine($"WriteResultResultOfBlock5:{Card.Write(5, new byte[16] { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF })}");
+            //        WR.WriteLine($"WriteResultResultOfBlock5:{Card.Write(5, new byte[16] { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF })}");
+            //        Thread.Sleep(300);
+            //        Console.WriteLine($"\tReadResultResultOfBlock5After:{Card.Read(5)}");
+            //        WR.WriteLine($"\tReadResultResultOfBlock5After:{Card.Read(5)}");
+            //        Thread.Sleep(300);
+            //        Console.WriteLine($"WriteResultResultOfBlock5:{Card.Write(5, new byte[16] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 })}");
+            //        WR.WriteLine($"WriteResultResultOfBlock5:{Card.Write(5, new byte[16] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 })}");
+            //        Thread.Sleep(300);
+            //        Console.WriteLine($"\tReadResultResultOfBlock5After:{Card.Read(5)}");
+            //        WR.WriteLine($"\tReadResultResultOfBlock5After:{Card.Read(5)}");
+            //        Thread.Sleep(300);
+            //        Console.WriteLine($"WriteValueResultResultOfBlock5:{Card.WriteValue(5, 5)}");
+            //        WR.WriteLine($"WriteValueResultResultOfBlock5:{Card.WriteValue(5, 5)}");
+            //        Thread.Sleep(300);
+            //        Console.WriteLine($"\tReadValueResultResultOfBlock5After:{Card.ReadValue(5)}");
+            //        WR.WriteLine($"\tReadValueResultResultOfBlock5After:{Card.ReadValue(5)}");
+            //        Thread.Sleep(300);
+            //        Console.WriteLine($"IncrementValueResultResultOfBlock5:{Card.IncrementValue(5, 5)}");
+            //        WR.WriteLine($"IncrementValueResultResultOfBlock5:{Card.IncrementValue(5, 5)}");
+            //        Thread.Sleep(300);
+            //        Console.WriteLine($"\tReadValueResultResultOfBlock5After:{Card.ReadValue(5)}");
+            //        WR.WriteLine($"\tReadValueResultResultOfBlock5After:{Card.ReadValue(5)}");
+            //        Thread.Sleep(300);
+            //        Console.WriteLine($"DecrementValueResultResultOfBlock5:{Card.DecrementValue(5, 5)}");
+            //        WR.WriteLine($"DecrementValueResultResultOfBlock5:{Card.DecrementValue(5, 5)}");
+            //        Thread.Sleep(300);
+            //        Console.WriteLine($"\tReadValueResultResultOfBlock5After:{Card.ReadValue(5)}");
+            //        WR.WriteLine($"\tReadValueResultResultOfBlock5After:{Card.ReadValue(5)}");
+            //        Thread.Sleep(300);
+            //        CardStack.MoveCardCommand(CRT591_Commands_MoveCardParam.MoveCardToGate);
+            //    }
+            //    catch (Exception e)
+            //    {
+
+            //        WR.WriteLine(e);
+            //        WR.WriteLine($"\nInner:{e.InnerException}");
+            //    }
+            //}
             #endregion
 
             #region SudoTesting
-            //byte[] PositiveMessage = new byte[] { 0xF2, 0x00, LENH, LENL, 0x50, 0x30, 0x33, St0, St1, St2, byte[]NData, 0x03, xor };
-            //byte[] NegativeResponse = new byte[] { 0xF2, 0x00, LENH, LENL, 0x45, 0x30, 0x33, E1, E0, byte[]NData, 0x03, xor };
-            #region CreateAndOpenTestVars
             SerialPort Reponse = new SerialPort("Com3", CRT591_Com.BaudRate, Parity.None, CRT591_Com.DataSize, StopBits.One);
             Reponse.Open();
             CRT591_Com CardStacker = new CRT591_Com("Com6");
@@ -141,9 +163,6 @@ namespace TestConsole
             Reponse.Write(new byte[14] { CRT591_Com.STX, 0x00, 0x00, 0x08, 0x50, 0x60, 0x33, (byte)CRT591_CardStatus.CardStatus_NoCard, (byte)CRT591_CardStackStatus.StackStatus_FewCards, (byte)CTR591_ErrorCardBinStatus.ErrorCardBinStatus_NotFull, 0x90, 0x00, CRT591_Com.ETX, 0x5b }, 0, 14);
             Console.WriteLine($"WriteValueResult:{Task6.Result}");
             #endregion
-
-
-            #endregion
             #endregion
 
             #region CardReaderTesting
@@ -166,30 +185,44 @@ namespace TestConsole
             //Console.WriteLine(Task.Result);
             #endregion
             #region RealTesting
-            //string Com;
-            //using (StreamReader SR = new StreamReader($"{Environment.CurrentDirectory}\\Com.txt"))
-            //    Com = SR.ReadToEnd();
-            ////Create a Reader
-            //CRT310_Com CardReader = new CRT310_Com(Com);
-            ////Open its com port
-            //CardReader.OpenCom();
-            //Thread.Sleep(300);
-            ////Required call to Init
-            //Console.WriteLine(CardReader.ResetInitCommand(CRT310_Commands_InitParam.ResetAndReturnVersion));
-            //Thread.Sleep(300);
-            //CRT310_CardStatus CardStatus = CRT310_CardStatus.NoCardInTheReader;
-            ////Simple poll loop
-            //while(CardStatus == CRT310_CardStatus.NoCardInTheReader)
+            //using (StreamWriter WR = new StreamWriter($"{Environment.CurrentDirectory}\\ErrorOutput.txt"))
             //{
-            //    CRT310_ReaderStatus Status = CardReader.ReaderStatus();
-            //    CardStatus = Status.CardStatus;
-            //    Console.WriteLine(CardStatus.ToString());
-            //    Thread.Sleep(300);
+            //    try
+            //    {
+            //        string Com;
+            //        using (StreamReader SR = new StreamReader($"{Environment.CurrentDirectory}\\Com.txt"))
+            //            Com = SR.ReadToEnd();
+            //        //Create a Reader
+            //        CRT310_Com CardReader = new CRT310_Com(Com);
+            //        //Open its com port
+            //        CardReader.OpenCom();
+            //        Thread.Sleep(300);
+            //        //Required call to Init
+            //        Console.WriteLine(CardReader.ResetInitCommand(CRT310_Commands_InitParam.ResetAndReturnVersion));
+            //        Thread.Sleep(300);
+            //        CRT310_CardStatus CardStatus = CRT310_CardStatus.NoCardInTheReader;
+            //        //Simple poll loop
+            //        while (CardStatus == CRT310_CardStatus.NoCardInTheReader)
+            //        {
+            //            CRT310_ReaderStatus Status = CardReader.ReaderStatus();
+            //            CardStatus = Status.CardStatus;
+            //            Console.WriteLine(CardStatus.ToString());
+            //            Thread.Sleep(300);
+            //        }
+            //        Thread.Sleep(300);
+            //        //Eject card on detect
+            //        Console.WriteLine("Ejecting card now");
+            //        Console.WriteLine(CardReader.MoveCard(CRT310_Commands_MoveParam.EjectCardFront).ToString());
+            //    }
+            //    catch (Exception e)
+            //    {
+
+            //        WR.WriteLine(e);
+            //        Console.WriteLine(e);
+            //        WR.WriteLine($"\nInner:{e.InnerException}");
+            //        Console.WriteLine($"\nInner:{e.InnerException}");
+            //    }
             //}
-            //Thread.Sleep(300);
-            ////Eject card on detect
-            //Console.WriteLine("Ejecting card now");
-            //Console.WriteLine(CardReader.MoveCard(CRT310_Commands_MoveParam.EjectCardFront).ToString());
             #endregion
             #endregion
             Console.ReadKey();

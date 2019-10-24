@@ -6,23 +6,26 @@ using System.Threading.Tasks;
 
 namespace CardReader_CRT_591
 {
+    /// <summary>
+    /// A class to encumpase positive messages at their core
+    /// </summary>
     public class CRT591_PositiveResponseMessage : CRT591_BaseResponseMessage
     {
         //ST0 CardStack 
         /// <summary>
         /// The status of the card track
         /// </summary>
-        CRT591_CardStatus CardStatus;
+        public CRT591_CardStatus CardStatus { get; private set; }
         //ST1 CardStack 
         /// <summary>
         /// The status of the loading stack
         /// </summary>
-        CRT591_CardStackStatus StackStatus;
+        public CRT591_CardStackStatus StackStatus { get; private set; }
         //ST2 Error bin status
         /// <summary>
         /// The status of the errored card bin
         /// </summary>
-        CTR591_ErrorCardBinStatus ErrorBinStatus;
+        public CTR591_ErrorCardBinStatus ErrorBinStatus { get; private set; }
 
         /// <summary>
         /// Make one

@@ -11,8 +11,17 @@ namespace CardReader_CRT_591
     /// </summary>
     public enum CTR591_ErrorCardBinStatus
     {
+        /// <summary>
+        /// We arnt sure what happened but this is an invalid return
+        /// </summary>
         ErrorCardBinStatus_Unkown,
+        /// <summary>
+        /// The error bin is not full
+        /// </summary>
         ErrorCardBinStatus_NotFull = 0x30,
+        /// <summary>
+        /// The error bin is full
+        /// </summary>
         ErrorCardBinStatus_Full = 0x31
     }
 }

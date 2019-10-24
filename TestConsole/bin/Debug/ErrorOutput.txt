@@ -1,0 +1,8 @@
+System.IO.IOException: The port 'Com14' does not exist.
+   at System.IO.Ports.InternalResources.WinIOError(Int32 errorCode, String str)
+   at System.IO.Ports.SerialStream..ctor(String portName, Int32 baudRate, Parity parity, Int32 dataBits, StopBits stopBits, Int32 readTimeout, Int32 writeTimeout, Handshake handshake, Boolean dtrEnable, Boolean rtsEnable, Boolean discardNull, Byte parityReplace)
+   at System.IO.Ports.SerialPort.Open()
+   at CardReader_CRT_591.CRT591_Com.OpenCom() in C:\Users\Angelo's Tower PC\Desktop\CardReader_CRT591\CardReader_CRT591\CardReader_CRT-591\CRT591_Com.cs:line 151
+   at TestConsole.Program.Main(String[] args) in C:\Users\Angelo's Tower PC\Desktop\CardReader_CRT591\CardReader_CRT591\TestConsole\Program.cs:line 31
+
+Inner:

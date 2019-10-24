@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace CardReader_CRT_591
 {
-    public interface CRT591_ICard
+    public interface CRT591_ICard : IDisposable
     {
         CRT591_CardTypes CardBaseType { get; }
+
+        bool Active { get; }
     }
 }
