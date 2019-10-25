@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace CardReader_CRT_591.RFCards
 {
     /// <summary>
-    /// A base class for all RF Cards
+    /// A base class for all RF Cards. It also cab be used to drop card secif checks
     /// </summary>
     public abstract class CRT591_MifareRF : CRT591_IRFCard
     {

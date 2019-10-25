@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace CardReader_CRT310.Events
 {
-    public delegate void CardEntered(object sender, CardEnteredEventArgs e);
+    public delegate void CardEntered(object sender, CRT310_CardEnteredEventArgs e);
 }

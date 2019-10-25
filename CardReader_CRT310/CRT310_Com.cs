@@ -26,7 +26,10 @@ namespace CardReader_CRT310
             SetCommBaudRate = 0x34,
         }
 
-        bool Initialized = false;
+        /// <summary>
+        /// Gets if the cardreader has been Initialized
+        /// </summary>
+        public bool Initialized { private set; get; } = false;
 
 
         const string InitError = "Reader has not been Initialized. Please call 'SendResetInitCommand' to Initialize before use.";
@@ -34,6 +37,9 @@ namespace CardReader_CRT310
 
         Thread ListeningThread;
 
+        /// <summary>
+        /// the event for if a card is placed into the reader.
+        /// </summary>
         CardEntered CardEnteredHandle;
 
         /// <summary>
@@ -125,6 +131,9 @@ namespace CardReader_CRT310
             }
         }
 
+        /// <summary>
+        /// Shows if event driven use is enabled
+        /// </summary>
         public bool EventListenAsOpposedToPoll
         {
             get; private set;
@@ -171,7 +180,7 @@ namespace CardReader_CRT310
                         {
                             Thread.Sleep(300);
                             lock (CardReader)
-                                CardReader.CardEnteredHandle?.Invoke(CardReader, new CardEnteredEventArgs(CardReader));
+                                CardReader.CardEnteredHandle?.Invoke(CardReader, new CRT310_CardEnteredEventArgs(CardReader));
                         }
 
                         if (CurrentStatus != LastStatus)

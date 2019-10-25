@@ -31,7 +31,10 @@ namespace CardReader_CRT_591
             RECYCLEBINCOUNTER = 0xA5
         }
 
-        bool Initialized = false;
+        /// <summary>
+        /// Gets if the cardreader has been Initialized
+        /// </summary>
+        public bool Initialized { private set; get; } = false;
 
         /// <summary>
         /// the Card that this is connected to
