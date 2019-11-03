@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BillValidator_NV200
+﻿namespace BillValidator_NV200
 {
-    enum NV200_Responses : byte
+    public enum NV200_Responses : byte
     {
         SSP_RESPONSE_OK = 0xF0,
         SSP_RESPONSE_COMMAND_NOT_KNOWN = 0xF2,

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BillValidator_NV200
+﻿namespace BillValidator_NV200
 {
-    class NV200_UnitData
+    public class NV200_UnitData
     {
         public NV200_UnitTypes ValidatorType { get; private set; }
         public string VersNumber { get; private set; }

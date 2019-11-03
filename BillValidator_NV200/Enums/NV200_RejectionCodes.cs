@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BillValidator_NV200
+﻿namespace BillValidator_NV200
 {
-    enum NV200_RejectionCodes : byte
+    public enum NV200_RejectionCodes : byte
     {
         NoteAccepted = 0x00,
         NoteLengthIncorrect = 0x01,

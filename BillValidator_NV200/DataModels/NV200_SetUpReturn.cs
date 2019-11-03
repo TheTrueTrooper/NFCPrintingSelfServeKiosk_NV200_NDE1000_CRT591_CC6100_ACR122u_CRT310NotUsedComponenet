@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using System.Collections.Generic;
 namespace BillValidator_NV200
 {
-    class NV200_SetUpReturn
+    public class NV200_SetUpReturn
     {
         public NV200_UnitTypes ValidatorType { get; private set; }
         public string FirmwareVerson { get; private set; }

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BillValidator_NV200
+﻿namespace BillValidator_NV200
 {
-    public enum NV200_Commands : byte
+    internal enum NV200_Commands : byte
     {
         SSP_CMD_RESET = 0x01,
         SSP_CMD_SET_CHANNEL_INHIBITS = 0x02,

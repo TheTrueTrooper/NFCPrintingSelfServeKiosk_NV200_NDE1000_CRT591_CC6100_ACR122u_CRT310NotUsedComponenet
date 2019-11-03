@@ -44,19 +44,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataModels\NV200_InitReturn.cs" />
+    <Compile Include="DataModels\NV200_PollEvents.cs" />
     <Compile Include="DataModels\NV200_SetUpReturn.cs" />
     <Compile Include="DataModels\NV200_UnitData.cs" />
-    <Compile Include="ITLibRequiredClasses\NV200_UnitTypes.cs" />
-    <Compile Include="ITLibRequiredClasses\NV200_ChannelFlags.cs" />
-    <Compile Include="ITLibRequiredClasses\NV200_ChannelData.cs" />
-    <Compile Include="ITLibRequiredClasses\NV200_CommandExtentions.cs" />
+    <Compile Include="Enums\NV200_UnitTypes.cs" />
+    <Compile Include="Enums\NV200_ChannelFlags.cs" />
+    <Compile Include="DataModels\NV200_ChannelData.cs" />
+    <Compile Include="ITLibHelperClasses\NV200_CommandExtentions.cs" />
     <Compile Include="NV200_Commands.cs" />
     <Compile Include="NV200_CommandException.cs" />
-    <Compile Include="Responses\NV200_Responses.cs" />
-    <Compile Include="Status\NV200_PollStatus.cs" />
+    <Compile Include="Enums\NV200_Responses.cs" />
+    <Compile Include="Enums\NV200_PollStatus.cs" />
     <Compile Include="NV200_Com.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Status\NV200_RejectionCodes.cs" />
+    <Compile Include="Enums\NV200_RejectionCodes.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Responses\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

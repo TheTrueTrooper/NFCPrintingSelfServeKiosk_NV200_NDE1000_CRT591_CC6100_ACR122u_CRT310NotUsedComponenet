@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BillValidator_NV200
+﻿namespace BillValidator_NV200
 {
     public class NV200_ChannelData
     {

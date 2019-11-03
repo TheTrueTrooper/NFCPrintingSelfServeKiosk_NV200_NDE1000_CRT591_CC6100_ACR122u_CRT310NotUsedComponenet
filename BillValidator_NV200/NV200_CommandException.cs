@@ -1,13 +1,9 @@
 ﻿using ITLlib;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BillValidator_NV200
 {
-    class NV200_CommandException : Exception
+    public class NV200_CommandException : Exception
     {
         public SSP_COMMAND_INFO CInfo { private set; get; }
         public SSP_COMMAND CurrentCommand { private set; get; }

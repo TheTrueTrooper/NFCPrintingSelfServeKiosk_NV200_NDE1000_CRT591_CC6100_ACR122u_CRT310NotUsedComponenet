@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace BillValidator_NV200
 {
     [Flags]
     public enum NV200_ChannelFlags : ushort
     {
+        UnknowChannelOrStillReading = 0x00,
         Channel1 = 0x01,
         Channel2 = 0x02,
         Channel3 = 0x04,

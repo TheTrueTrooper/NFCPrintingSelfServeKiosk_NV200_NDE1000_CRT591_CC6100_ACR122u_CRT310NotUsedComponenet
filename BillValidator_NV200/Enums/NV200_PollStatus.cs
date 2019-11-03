@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BillValidator_NV200
+﻿namespace BillValidator_NV200
 {
-    enum NV200_PollStatusFlags : byte
+    public enum NV200_PollStatusFlags : byte
     {
         Poll_Tebs_CASHBOX_OUT_OF_SERVICE = 0x90,
         Poll_Tebs_CASHBOX_TAMPER = 0x91,
