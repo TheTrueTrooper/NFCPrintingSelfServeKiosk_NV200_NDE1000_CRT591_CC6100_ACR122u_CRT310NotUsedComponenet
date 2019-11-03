@@ -3,7 +3,7 @@
     /// <summary>
     /// where should the machine move the card to
     /// </summary>
-    public enum CRT591_Commands_MoveCardParam
+    public enum CRT591_Commands_MoveCardParam : byte
     {
         /// <summary>
         /// Move the card to the holding bin

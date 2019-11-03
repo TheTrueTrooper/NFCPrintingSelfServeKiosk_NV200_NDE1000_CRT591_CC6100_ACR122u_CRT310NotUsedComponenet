@@ -3,7 +3,7 @@
     /// <summary>
     /// At start up what would the Reader do
     /// </summary>
-    public enum CRT591_Commands_InitParam
+    public enum CRT591_Commands_InitParam : byte
     {
         /// <summary>
         /// Move the card to the holding bin

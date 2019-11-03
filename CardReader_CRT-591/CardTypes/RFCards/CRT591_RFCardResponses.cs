@@ -3,7 +3,7 @@
     /// <summary>
     /// Standard A & B protocol responses
     /// </summary>
-    public enum CRT591_RFCardResponses
+    public enum CRT591_RFCardResponses : byte
     {
         /// <summary>
         /// operation has succed

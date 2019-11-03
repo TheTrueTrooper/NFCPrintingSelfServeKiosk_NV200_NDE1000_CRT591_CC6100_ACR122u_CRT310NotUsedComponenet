@@ -24,7 +24,7 @@ namespace CardReader_CRT_591
         /// </summary>
         public CTR591_ErrorCardBinStatus ErrorBinStatus { get; private set; }
 
-        public CRT591_ReaderStatus(CRT591_CardStatus CardStatus, CRT591_CardStackStatus StackStatus, CTR591_ErrorCardBinStatus ErrorBinStatus)
+        internal CRT591_ReaderStatus(CRT591_CardStatus CardStatus, CRT591_CardStackStatus StackStatus, CTR591_ErrorCardBinStatus ErrorBinStatus)
         {
             this.CardStatus = CardStatus;
             this.StackStatus = StackStatus;

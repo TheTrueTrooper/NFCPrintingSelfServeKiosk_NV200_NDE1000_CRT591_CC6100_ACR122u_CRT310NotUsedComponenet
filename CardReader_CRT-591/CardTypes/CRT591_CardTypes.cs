@@ -9,7 +9,7 @@ namespace CardReader_CRT_591
     /// <summary>
     /// Gets the card types
     /// </summary>
-    public enum CRT591_CardTypes
+    public enum CRT591_CardTypes : byte
     {
         /// <summary>
         /// This is an RF or NFC Card (See or cast to the CRT591_MifareRF class) 

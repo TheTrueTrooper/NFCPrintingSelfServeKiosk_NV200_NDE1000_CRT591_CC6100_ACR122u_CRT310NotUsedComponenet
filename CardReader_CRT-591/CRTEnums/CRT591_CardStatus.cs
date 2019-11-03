@@ -9,7 +9,7 @@ namespace CardReader_CRT_591
     /// <summary>
     /// A status Enum returned on reponses for the card track
     /// </summary>
-    public enum CRT591_CardStatus
+    public enum CRT591_CardStatus : byte
     {
         /// <summary>
         /// We arnt sure what happened but this is an invalid return

@@ -3,7 +3,7 @@
     /// <summary>
     /// Set the card readers Gate to Allow/Disable Entry
     /// </summary>
-    public enum CRT591_Commands_SetCardEntryParam
+    public enum CRT591_Commands_SetCardEntryParam : byte
     {
         /// <summary>
         /// Enable card entrys from the outside

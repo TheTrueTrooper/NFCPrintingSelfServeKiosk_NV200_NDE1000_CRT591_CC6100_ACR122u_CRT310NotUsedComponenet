@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CardReader_CRT310
 {
-    public enum CRT310_SwitchStatus
+    public enum CRT310_SwitchStatus : byte
     {
         SwitchSignalOff = 0x30,
         SwitchSignalOn = 0x31

@@ -9,7 +9,7 @@ namespace CardReader_CRT_591
     /// <summary>
     /// A status Enum returned on reponses for the card Error discard bin
     /// </summary>
-    public enum CTR591_ErrorCardBinStatus
+    public enum CTR591_ErrorCardBinStatus : byte
     {
         /// <summary>
         /// We arnt sure what happened but this is an invalid return

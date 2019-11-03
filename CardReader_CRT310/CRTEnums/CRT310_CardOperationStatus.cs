@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CardReader_CRT310
 {
-    public enum CRT310_CardOperationStatus
+    public enum CRT310_CardOperationStatus : byte
     {
         Success = 0x59,
         Failure = 0x4E,

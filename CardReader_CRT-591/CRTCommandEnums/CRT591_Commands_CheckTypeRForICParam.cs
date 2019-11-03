@@ -3,7 +3,7 @@
     /// <summary>
     /// What type of card are you checking for
     /// </summary>
-    public enum CRT591_Commands_CheckTypeRForICParam
+    public enum CRT591_Commands_CheckTypeRForICParam : byte
     {
         /// <summary>
         /// Contact pined cards

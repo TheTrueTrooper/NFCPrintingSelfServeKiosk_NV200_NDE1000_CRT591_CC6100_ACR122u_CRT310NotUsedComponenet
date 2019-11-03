@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CardReader_CRT310
 {
-    public enum CRT310_Commands_InitParam
+    public enum CRT310_Commands_InitParam : byte
     {
         ResetAndReturnVersion = 0x30,
         ResetWithCardEjectedFront = 0x31,

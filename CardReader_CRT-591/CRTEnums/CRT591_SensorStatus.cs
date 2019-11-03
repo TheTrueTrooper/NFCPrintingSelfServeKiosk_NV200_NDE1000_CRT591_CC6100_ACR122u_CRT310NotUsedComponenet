@@ -9,7 +9,7 @@ namespace CardReader_CRT_591
     /// <summary>
     /// The status of the sensors
     /// </summary>
-    public enum CRT591_SensorStatus
+    public enum CRT591_SensorStatus : byte
     {
         /// <summary>
         /// We arnt sure what happened but this is an invalid return or the Sensor is reserved

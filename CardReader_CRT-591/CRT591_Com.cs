@@ -130,7 +130,7 @@ namespace CardReader_CRT_591
         {
             get
             {
-                return SerialPort.PortName;
+                return SerialPort?.PortName;
             }
         }
 

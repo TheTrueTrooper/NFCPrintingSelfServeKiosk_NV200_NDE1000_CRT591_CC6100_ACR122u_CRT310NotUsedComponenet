@@ -44,7 +44,7 @@ namespace CardReader_CRT_591
         /// <param name="Command">The command that was requested</param>
         /// <param name="Param">the param or sub command that was request</param>
         /// <param name="Data">The data on the block</param>
-        public CRT591_BaseResponseMessage(CRT591_MessageResponseStatus ResponseStatus = CRT591_MessageResponseStatus.UnkownFormateAssumedNotFor, byte MachineAddress = 0x00, byte Command = 0x00, byte Param = 0x00, byte[] Data = null)
+        internal CRT591_BaseResponseMessage(CRT591_MessageResponseStatus ResponseStatus = CRT591_MessageResponseStatus.UnkownFormateAssumedNotFor, byte MachineAddress = 0x00, byte Command = 0x00, byte Param = 0x00, byte[] Data = null)
         {
             this.MachineAddress = MachineAddress;
             this.ResponseStatus = ResponseStatus;

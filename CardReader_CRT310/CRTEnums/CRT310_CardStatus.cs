@@ -9,7 +9,7 @@ namespace CardReader_CRT310
     /// <summary>
     /// A status Enum returned on reponses for the card track
     /// </summary>
-    public enum CRT310_CardStatus
+    public enum CRT310_CardStatus : byte
     {
         CardStatus_Unkown,
         WithLongCardInReader = 0X46,

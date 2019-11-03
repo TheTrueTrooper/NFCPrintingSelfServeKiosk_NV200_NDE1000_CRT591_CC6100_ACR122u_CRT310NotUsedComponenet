@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "TestConsole\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardReader_CRT-310", "CardReader_CRT310\CardReader_CRT-310.csproj", "{D8958330-2C62-4253-BE80-976E0D5450AF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillValidator_NV200", "BillValidator_NV200\BillValidator_NV200.csproj", "{EA91BAA4-0274-4B26-BE10-8FBA1586EBA4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillDispenser_NDE1000", "BillDispenser_NDE1000\BillDispenser_NDE1000.csproj", "{92ADD627-377E-47DA-B951-87850C3E22A9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{D8958330-2C62-4253-BE80-976E0D5450AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8958330-2C62-4253-BE80-976E0D5450AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8958330-2C62-4253-BE80-976E0D5450AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA91BAA4-0274-4B26-BE10-8FBA1586EBA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA91BAA4-0274-4B26-BE10-8FBA1586EBA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA91BAA4-0274-4B26-BE10-8FBA1586EBA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA91BAA4-0274-4B26-BE10-8FBA1586EBA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92ADD627-377E-47DA-B951-87850C3E22A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92ADD627-377E-47DA-B951-87850C3E22A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92ADD627-377E-47DA-B951-87850C3E22A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92ADD627-377E-47DA-B951-87850C3E22A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

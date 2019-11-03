@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CardReader_CRT310
 {
-    public enum CRT310_CardReaderFrontStatus
+    public enum CRT310_CardReaderFrontStatus : byte
     {
         AllowCardByMagneticSignalOpeningShutter = 0X49,
         AllowCardBySwitch = 0X4A,

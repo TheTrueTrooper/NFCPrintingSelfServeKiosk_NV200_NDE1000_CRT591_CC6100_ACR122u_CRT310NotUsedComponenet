@@ -1,0 +1,8 @@
+C:\Users\Angelo's Tower PC\Desktop\CardReader_CRT591\CardReader_CRT591\BillValidator_NV200\bin\Debug\BillValidator_NV200.dll
+C:\Users\Angelo's Tower PC\Desktop\CardReader_CRT591\CardReader_CRT591\BillValidator_NV200\bin\Debug\BillValidator_NV200.pdb
+C:\Users\Angelo's Tower PC\Desktop\CardReader_CRT591\CardReader_CRT591\BillValidator_NV200\bin\Debug\ITLlib.dll
+C:\Users\Angelo's Tower PC\Desktop\CardReader_CRT591\CardReader_CRT591\BillValidator_NV200\obj\Debug\BillValidator_NV200.csprojAssemblyReference.cache
+C:\Users\Angelo's Tower PC\Desktop\CardReader_CRT591\CardReader_CRT591\BillValidator_NV200\obj\Debug\BillValidator_NV200.csproj.CoreCompileInputs.cache
+C:\Users\Angelo's Tower PC\Desktop\CardReader_CRT591\CardReader_CRT591\BillValidator_NV200\obj\Debug\BillValidator_NV200.csproj.CopyComplete
+C:\Users\Angelo's Tower PC\Desktop\CardReader_CRT591\CardReader_CRT591\BillValidator_NV200\obj\Debug\BillValidator_NV200.dll
+C:\Users\Angelo's Tower PC\Desktop\CardReader_CRT591\CardReader_CRT591\BillValidator_NV200\obj\Debug\BillValidator_NV200.pdb

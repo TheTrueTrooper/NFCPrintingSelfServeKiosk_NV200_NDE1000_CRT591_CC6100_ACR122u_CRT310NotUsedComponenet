@@ -1,6 +1,6 @@
 ﻿namespace CardReader_CRT_591
 {
-    internal enum CRT591_Commands_SLEOperationParam
+    internal enum CRT591_Commands_SLEOperationParam : byte
     {
         SLE4442And4428Reset = 0x30,
         SLE4442And4428PowerDown = 0x31,

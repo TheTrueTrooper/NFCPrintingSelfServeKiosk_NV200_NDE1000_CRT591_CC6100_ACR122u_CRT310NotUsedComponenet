@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CardReader_CRT310
 {
-    public enum CRT310_Commands_MoveParam
+    public enum CRT310_Commands_MoveParam : byte
     {
         MoveCardToRFPostion = 0x2E,
         MoveCardToICContactPostion = 0x2F,

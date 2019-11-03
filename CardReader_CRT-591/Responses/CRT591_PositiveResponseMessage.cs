@@ -37,7 +37,7 @@ namespace CardReader_CRT_591
         /// <param name="StackStatus">The status of the loading stack</param>
         /// <param name="ErrorBinStatus">The status of the errored card bin</param>
         /// <param name="Data">The data on the block</param>
-        public CRT591_PositiveResponseMessage(byte MachineAddress, byte Command, byte Param, CRT591_CardStatus CardStatus, CRT591_CardStackStatus StackStatus, CTR591_ErrorCardBinStatus ErrorBinStatus, byte[] Data = null) : base(CRT591_MessageResponseStatus.Positive, MachineAddress, Command, Param, Data)
+        internal CRT591_PositiveResponseMessage(byte MachineAddress, byte Command, byte Param, CRT591_CardStatus CardStatus, CRT591_CardStackStatus StackStatus, CTR591_ErrorCardBinStatus ErrorBinStatus, byte[] Data = null) : base(CRT591_MessageResponseStatus.Positive, MachineAddress, Command, Param, Data)
         {
             this.CardStatus = CardStatus;
             this.StackStatus = StackStatus;

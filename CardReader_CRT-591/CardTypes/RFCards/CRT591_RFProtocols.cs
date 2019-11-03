@@ -3,7 +3,7 @@
     /// <summary>
     /// The current air protocol used
     /// </summary>
-    public enum CRT591_RFProtocols
+    public enum CRT591_RFProtocols : byte
     {
         /// <summary>
         /// This card isnt actually in use

@@ -10,12 +10,12 @@ namespace CardReader_CRT_591
     {
         public CRT591_NegativeResponseMessage ReponseOnException { private set; get; }
 
-        public CRT591_CommandException(CRT591_NegativeResponseMessage ReponseOnException, string Message) : base(Message)
+        internal CRT591_CommandException(CRT591_NegativeResponseMessage ReponseOnException, string Message) : base(Message)
         {
             this.ReponseOnException = ReponseOnException;
         }
 
-        public CRT591_CommandException(CRT591_NegativeResponseMessage ReponseOnException) : this(ReponseOnException, $"A negative Response has come back on {ReponseOnException.Command}:{ReponseOnException.Param} for Machine {ReponseOnException.MachineAddress}")
+        internal CRT591_CommandException(CRT591_NegativeResponseMessage ReponseOnException) : this(ReponseOnException, $"A negative Response has come back on {ReponseOnException.Command}:{ReponseOnException.Param} for Machine {ReponseOnException.MachineAddress}")
         {
         }
     }
