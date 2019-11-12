@@ -50,6 +50,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BillDispenser_NDE1000\BillDispenser_NDE1000.csproj">
+      <Project>{92add627-377e-47da-b951-87850c3e22a9}</Project>
+      <Name>BillDispenser_NDE1000</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BillValidator_NV200\BillValidator_NV200.csproj">
+      <Project>{ea91baa4-0274-4b26-be10-8fba1586eba4}</Project>
+      <Name>BillValidator_NV200</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CardReader_CRT-591\CardReader_CRT-591.csproj">
       <Project>{3d4900d4-f6f4-4596-a7c7-57e1de1e7001}</Project>
       <Name>CardReader_CRT-591</Name>

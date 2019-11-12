@@ -245,7 +245,7 @@ namespace BillValidator_NV200
                 if (Event.EventType == NV200_PollStatusFlags.Poll_Read_Note || Event.EventType == NV200_PollStatusFlags.Poll_Credit_Note || Event.EventType == NV200_PollStatusFlags.Poll_Fraud_Attempt || Event.EventType == NV200_PollStatusFlags.Poll_Note_Cleared_From_Front || Event.EventType == NV200_PollStatusFlags.Poll_Note_Cleared_To_CashBox)
                 {
                     i += 1;
-                    Event.Channel = (NV200_ChannelFlags)RawReturn[i];
+                    Event.Channel = RawReturn[i];
                     break;
                 }
                 else
@@ -275,7 +275,7 @@ namespace BillValidator_NV200
                 if (Event.EventType == NV200_PollStatusFlags.Poll_Read_Note || Event.EventType == NV200_PollStatusFlags.Poll_Credit_Note || Event.EventType == NV200_PollStatusFlags.Poll_Fraud_Attempt || Event.EventType == NV200_PollStatusFlags.Poll_Note_Cleared_From_Front || Event.EventType == NV200_PollStatusFlags.Poll_Note_Cleared_To_CashBox)
                 {
                     i += 1;
-                    Event.Channel = (NV200_ChannelFlags)RawReturn[i];
+                    Event.Channel = RawReturn[i];
                     break;
                 }
                 else

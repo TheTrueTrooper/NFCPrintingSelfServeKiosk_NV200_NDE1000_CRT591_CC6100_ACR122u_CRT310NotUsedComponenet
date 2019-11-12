@@ -1,6 +1,9 @@
 ﻿using System;
 namespace BillValidator_NV200
 {
+    /// <summary>
+    /// Flags that are used to set a channel on (Xor with 0xFF or mask in some other way) 
+    /// </summary>
     [Flags]
     public enum NV200_ChannelFlags : ushort
     {

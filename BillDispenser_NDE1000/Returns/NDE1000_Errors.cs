@@ -1,4 +1,7 @@
-﻿public enum NDE1000_Errors : byte
+﻿/// <summary>
+/// Different errors that culd habe happended
+/// </summary>
+public enum NDE1000_Errors : byte
 {
     NoError = 0x30,
     BoBillsDurringDespensalCommand = 0x31,

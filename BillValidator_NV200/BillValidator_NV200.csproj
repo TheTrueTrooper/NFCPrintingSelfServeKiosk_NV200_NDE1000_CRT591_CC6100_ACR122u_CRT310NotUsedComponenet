@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataModels\NV200_ChannelSelector.cs" />
     <Compile Include="DataModels\NV200_InitReturn.cs" />
     <Compile Include="DataModels\NV200_PollEvents.cs" />
     <Compile Include="DataModels\NV200_SetUpReturn.cs" />
@@ -62,6 +63,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Responses\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GA138_2_2_649_EventGuide.pdf" />
+    <None Include="GA973 SSP Implementation Guide v2.2.pdf" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

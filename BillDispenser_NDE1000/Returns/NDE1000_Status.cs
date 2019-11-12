@@ -1,5 +1,8 @@
 ﻿namespace BillDispenser_NDE1000
 {
+    /// <summary>
+    /// The machines status
+    /// </summary>
     public enum NDE1000_Status : byte
     {
         Busy = (byte)'w',

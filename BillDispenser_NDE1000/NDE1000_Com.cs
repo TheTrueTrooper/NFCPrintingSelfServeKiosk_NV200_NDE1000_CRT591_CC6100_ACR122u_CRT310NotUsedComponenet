@@ -31,11 +31,16 @@ namespace BillDispenser_NDE1000
 
         SerialPort ComPort;
 
-        NDE1000_Com(string ComPort, byte Address = 0)
+        public NDE1000_Com(string ComPort, byte Address = 0)
         {
             this.Address = Address;
 
             this.ComPort = new SerialPort(ComPort, BuadRate, Parity.None, Data, StopBits.One);
+        }
+
+        public void OpenCom()
+        {
+            ComPort.Open();
         }
 
         byte[] SendCommand(byte Command, byte[] Data = null)
@@ -83,7 +88,12 @@ namespace BillDispenser_NDE1000
             throw new Exception("Error in recived response. known message recived");
         }
 
-        int DispenseNotes(int Amount)
+        /// <summary>
+        /// simply despenses the amount of notes desired and returns the actuall dispensed amount,
+        /// </summary>
+        /// <param name="Amount"></param>
+        /// <returns></returns>
+        public int DispenseNotes(int Amount)
         {
             string StAmount = String.Format("{0,18:000}", Amount);
             //byte[] Answer = SendCommand((byte)Commands.DispenseNotes, new byte[] { 0x30, (byte)StAmount[0], (byte)StAmount[1], (byte)StAmount[2] });
@@ -94,12 +104,21 @@ namespace BillDispenser_NDE1000
             return int.Parse(ASCIIEncoding.ASCII.GetString(Answer, 5, 3));
         }
 
-        void ClearData(NDE1000_ClearData DataToClear)
+        /// <summary>
+        /// clears a data register
+        /// </summary>
+        /// <param name="DataToClear"></param>
+        public void ClearData(NDE1000_ClearData DataToClear)
         {
             SendCommand((byte)Commands.DispenseNotes, new byte[] { 0x30, 0x30, 0x30, (byte)DataToClear });
         }
 
-        void LockButtons(bool LockStartKey = true, bool LockClearKey = true)
+        /// <summary>
+        /// Locks or unlocks keys
+        /// </summary>
+        /// <param name="LockStartKey">true for lock</param>
+        /// <param name="LockClearKey">true for lock</param>
+        public void LockButtons(bool LockStartKey = true, bool LockClearKey = true)
         {
             byte[] Data = new byte[] { 0x30, 0x30, 0x30, 0x30 };
             if (LockStartKey)
@@ -109,7 +128,11 @@ namespace BillDispenser_NDE1000
             SendCommand((byte)Commands.DispenseNotes, Data);
         }
 
-        NDE1000_StatusReturn GetStatus()
+        /// <summary>
+        /// Gets the machines oveall status
+        /// </summary>
+        /// <returns></returns>
+        public NDE1000_StatusReturn GetStatus()
         {
             //byte[] Answer = SendCommand((byte)Commands.DispenseNotes);
             SendCommand((byte)Commands.DispenseNotes);
@@ -121,7 +144,11 @@ namespace BillDispenser_NDE1000
 
         }
 
-        NDE1000_DispensalCheckReturn CheckDispensalStatus()
+        /// <summary>
+        /// Gets the status of the last dispensal
+        /// </summary>
+        /// <returns></returns>
+        public NDE1000_DispensalCheckReturn CheckDispensalStatus()
         {
             //byte[] Answer = SendCommand((byte)Commands.DispenseNotes);
             SendCommand((byte)Commands.DispenseNotes);
@@ -133,13 +160,13 @@ namespace BillDispenser_NDE1000
 
         }
 
-        void WriteRealTimeClock(byte Year, byte Month, byte Day, byte Hour, byte Minute, byte Second)
+        public void WriteRealTimeClock(byte Year, byte Month, byte Day, byte Hour, byte Minute, byte Second)
         {
             SendCommand((byte)Commands.SetRealTimeClock, new byte[] { (byte)'d', Year, Month, Day });
             SendCommand((byte)Commands.SetRealTimeClock, new byte[] { (byte)'t', Hour, Minute, Second });
         }
 
-        DateTime GetRealTimeClock()
+        public DateTime GetRealTimeClock()
         {
             //byte[] Answer = SendCommand((byte)Commands.DispenseNotes);
             SendCommand((byte)Commands.GetRealTimeClock, new byte[] { (byte)'d', 0x30, 0x30, 0x30 });

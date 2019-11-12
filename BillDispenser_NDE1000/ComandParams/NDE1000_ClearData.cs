@@ -1,5 +1,8 @@
 ﻿namespace BillDispenser_NDE1000
 {
+    /// <summary>
+    /// the type of data to clear
+    /// </summary>
     public enum NDE1000_ClearData
     {
         AccumulatedDispensedNumber = 0x31,

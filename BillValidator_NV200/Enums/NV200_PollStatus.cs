@@ -1,13 +1,16 @@
 ﻿namespace BillValidator_NV200
 {
+    /// <summary>
+    /// The posible events that the machine can generate
+    /// </summary>
     public enum NV200_PollStatusFlags : byte
     {
-        Poll_Tebs_CASHBOX_OUT_OF_SERVICE = 0x90,
-        Poll_Tebs_CASHBOX_TAMPER = 0x91,
-        Poll_Tebs_CASHBOX_IN_SERVICE = 0x92,
-        Poll_Tebs_CASHBOX_UNLOCK_ENABLED = 0x93,
+        Poll_Tebs_CashBox_OutOfService = 0x90,
+        Poll_Tebs_CashBox_Tamper = 0x91,
+        Poll_Tebs_CashBox_InService = 0x92,
+        Poll_Tebs_CashBox_UnlockEnabled = 0x93,
         Poll_Jam_RECOVERY = 0xB0,
-        Poll_Error_DURING_PAYOUT = 0xB1,
+        Poll_Error_Durring_Payout = 0xB1,
         Poll_Smart_EMPTYING = 0xB3,
         Poll_Smart_EMPTIED = 0xB4,
         Poll_Channel_DISABLE = 0xB5,
