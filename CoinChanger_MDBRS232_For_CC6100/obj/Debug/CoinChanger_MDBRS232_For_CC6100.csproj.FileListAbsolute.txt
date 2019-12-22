@@ -1,0 +1,6 @@
+C:\Users\Angelo's Tower PC\Desktop\CardReader_CRT591\CardReader_CRT591\CoinChanger_MDBRS232_For_CC6100\obj\Debug\CoinChanger_MDBRS232_For_CC6100.csprojAssemblyReference.cache
+C:\Users\Angelo's Tower PC\Desktop\CardReader_CRT591\CardReader_CRT591\CoinChanger_MDBRS232_For_CC6100\obj\Debug\CoinChanger_MDBRS232_For_CC6100.csproj.CoreCompileInputs.cache
+C:\Users\Angelo's Tower PC\Desktop\CardReader_CRT591\CardReader_CRT591\CoinChanger_MDBRS232_For_CC6100\bin\Debug\CoinChanger_MDBRS232_For_CC6100.dll
+C:\Users\Angelo's Tower PC\Desktop\CardReader_CRT591\CardReader_CRT591\CoinChanger_MDBRS232_For_CC6100\bin\Debug\CoinChanger_MDBRS232_For_CC6100.pdb
+C:\Users\Angelo's Tower PC\Desktop\CardReader_CRT591\CardReader_CRT591\CoinChanger_MDBRS232_For_CC6100\obj\Debug\CoinChanger_MDBRS232_For_CC6100.dll
+C:\Users\Angelo's Tower PC\Desktop\CardReader_CRT591\CardReader_CRT591\CoinChanger_MDBRS232_For_CC6100\obj\Debug\CoinChanger_MDBRS232_For_CC6100.pdb

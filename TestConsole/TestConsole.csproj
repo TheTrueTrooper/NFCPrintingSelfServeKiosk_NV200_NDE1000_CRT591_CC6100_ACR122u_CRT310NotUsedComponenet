@@ -66,6 +66,10 @@
       <Project>{d8958330-2c62-4253-be80-976e0d5450af}</Project>
       <Name>CardReader_CRT-310</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CoinChanger_MDBRS232_For_CC6100\CoinChanger_MDBRS232_For_CC6100.csproj">
+      <Project>{4c192d74-445f-4e73-a90d-55b9462a63fa}</Project>
+      <Name>CoinChanger_MDBRS232_For_CC6100</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Com.txt">

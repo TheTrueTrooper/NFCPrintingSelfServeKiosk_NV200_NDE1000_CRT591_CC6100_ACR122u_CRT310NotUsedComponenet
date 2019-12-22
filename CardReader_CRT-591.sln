@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillValidator_NV200", "Bill
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillDispenser_NDE1000", "BillDispenser_NDE1000\BillDispenser_NDE1000.csproj", "{92ADD627-377E-47DA-B951-87850C3E22A9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoinChanger_MDBRS232_For_CC6100", "CoinChanger_MDBRS232_For_CC6100\CoinChanger_MDBRS232_For_CC6100.csproj", "{4C192D74-445F-4E73-A90D-55B9462A63FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{92ADD627-377E-47DA-B951-87850C3E22A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92ADD627-377E-47DA-B951-87850C3E22A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92ADD627-377E-47DA-B951-87850C3E22A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C192D74-445F-4E73-A90D-55B9462A63FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C192D74-445F-4E73-A90D-55B9462A63FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C192D74-445F-4E73-A90D-55B9462A63FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C192D74-445F-4E73-A90D-55B9462A63FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

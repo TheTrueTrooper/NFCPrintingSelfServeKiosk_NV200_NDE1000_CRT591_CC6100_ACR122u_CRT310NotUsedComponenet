@@ -11,6 +11,8 @@ using CardReader_CRT310;
 using CardReader_CRT_591.RFCards;
 using BillValidator_NV200;
 using BillDispenser_NDE1000;
+using CoinChanger_MDBRS232_For_CC6100;
+using CoinChanger_MDBRS232_For_CC6100.MDBEnums.CAD;
 
 namespace TestConsole
 {
@@ -230,63 +232,75 @@ namespace TestConsole
 
 
             #region BillValidator and BillDespens Examples
-            //Open and det up the com
-            NV200_Com BillValidator = new NV200_Com("Com1");
-            BillValidator.OpenCom();
-            //this is important as it sets the machine up and gets all required operation data
-            NV200_InitReturn Settings = BillValidator.InIt();
+            ////Open and det up the com
+            //NV200_Com BillValidator = new NV200_Com("Com1");
+            //BillValidator.OpenCom();
+            ////this is important as it sets the machine up and gets all required operation data
+            //NV200_InitReturn Settings = BillValidator.InIt();
 
-            //open channels desired channels and close all others example (open all)
-            NV200_ChannelFlags OpenChannels = 0x00;
-            foreach (NV200_ChannelData Channels in Settings.SetUpReturnData.ChannelData)
-                OpenChannels |= Channels.ChannelEnableFlag;
-            BillValidator.SetEnableChannels(OpenChannels);
+            ////open channels desired channels and close all others example (open all)
+            //NV200_ChannelFlags OpenChannels = 0x00;
+            //foreach (NV200_ChannelData Channels in Settings.SetUpReturnData.ChannelData)
+            //    OpenChannels |= Channels.ChannelEnableFlag;
+            //BillValidator.SetEnableChannels(OpenChannels);
 
-            //example of seting the lights on the bezal
-            BillValidator.TurnLightOn();
-            BillValidator.SetLightColour(255/*RGB*/, 0, 0, false /*Remember after power down*/);
+            ////example of seting the lights on the bezal
+            //BillValidator.TurnLightOn();
+            //BillValidator.SetLightColour(255/*RGB*/, 0, 0, false /*Remember after power down*/);
 
-            //example of polling recomend a asyn task patter or just opening a thread for it.
-            while(true)
-            {
-                List<NV200_PollEvents> EventsInBetween = BillValidator.PollForStatus();
-                foreach(NV200_PollEvents Event in EventsInBetween)
-                {
-                    switch(Event.EventType)
-                    {
-                        //if rejected do something ~ up to you really but as an example refer to list for full range
-                        case NV200_PollStatusFlags.Poll_Note_Rejected:
-                            Console.WriteLine($"A {Settings.SetUpReturnData.ChannelData[Event.Channel.Value].ChannelValue + Settings.SetUpReturnData.ChannelData[Event.Channel.Value].CurrencyCode} note was rejected! for {BillValidator.GetLastRejectCode()}");
-                            break;
-                        case NV200_PollStatusFlags.Poll_Note_Stacked:
-                            Console.WriteLine($"A {Settings.SetUpReturnData.ChannelData[Event.Channel.Value].ChannelValue + Settings.SetUpReturnData.ChannelData[Event.Channel.Value].CurrencyCode} note was credited and stacked!");
-                            break;
-                    }
-                }
-                //minimal sleep time 200~1000 was recomended. (over time could cause the stack to crash on the machine so try to avoid)
-                Thread.Sleep(200);
-            }
+            ////example of polling recomend a asyn task patter or just opening a thread for it.
+            //while(true)
+            //{
+            //    List<NV200_PollEvents> EventsInBetween = BillValidator.PollForStatus();
+            //    foreach(NV200_PollEvents Event in EventsInBetween)
+            //    {
+            //        switch(Event.EventType)
+            //        {
+            //            //if rejected do something ~ up to you really but as an example refer to list for full range
+            //            case NV200_PollStatusFlags.Poll_Note_Rejected:
+            //                Console.WriteLine($"A {Settings.SetUpReturnData.ChannelData[Event.Channel.Value].ChannelValue + Settings.SetUpReturnData.ChannelData[Event.Channel.Value].CurrencyCode} note was rejected! for {BillValidator.GetLastRejectCode()}");
+            //                break;
+            //            case NV200_PollStatusFlags.Poll_Note_Stacked:
+            //                Console.WriteLine($"A {Settings.SetUpReturnData.ChannelData[Event.Channel.Value].ChannelValue + Settings.SetUpReturnData.ChannelData[Event.Channel.Value].CurrencyCode} note was credited and stacked!");
+            //                break;
+            //        }
+            //    }
+            //    //minimal sleep time 200~1000 was recomended. (over time could cause the stack to crash on the machine so try to avoid)
+            //    Thread.Sleep(200);
+            //}
 
-            //make and open com
-            NDE1000_Com Despenser = new NDE1000_Com("ComX");
-            Despenser.OpenCom();
-            //lock all buttons (default is all) or know unlock whatever
-            Despenser.LockButtons();
-            const int ExpectedBillValue = 5;
-            int ValueToDespesne = 10;
-            int NumberToDespense = ValueToDespesne / ExpectedBillValue;
+            ////make and open com
+            //NDE1000_Com Despenser = new NDE1000_Com("ComX");
+            //Despenser.OpenCom();
+            ////lock all buttons (default is all) or know unlock whatever
+            //Despenser.LockButtons();
+            //const int ExpectedBillValue = 5;
+            //int ValueToDespesne = 10;
+            //int NumberToDespense = ValueToDespesne / ExpectedBillValue;
 
-            //despese notes
-            if(NumberToDespense != Despenser.DispenseNotes(NumberToDespense))
-            {
-                // if it doesnt mach then we have and error
-                NDE1000_DispensalCheckReturn StatusOfOrder = Despenser.CheckDispensalStatus();
-                Console.WriteLine($"only {StatusOfOrder.DespensalCount} bills were dispensed due to {StatusOfOrder.Error}");
-                //You can also use "Despenser.GetStatus()" for MoreInfo
-            }
+            ////despese notes
+            //if(NumberToDespense != Despenser.DispenseNotes(NumberToDespense))
+            //{
+            //    // if it doesnt mach then we have and error
+            //    NDE1000_DispensalCheckReturn StatusOfOrder = Despenser.CheckDispensalStatus();
+            //    Console.WriteLine($"only {StatusOfOrder.DespensalCount} bills were dispensed due to {StatusOfOrder.Error}");
+            //    //You can also use "Despenser.GetStatus()" for MoreInfo
+            //}
 
             //ther are more fuctions like write a time to rtc clock
 
+            #endregion
+
+            #region CoinTest
+            CC6100MDB_Com CoinChanger = new CC6100MDB_Com("Com1");
+
+            CoinChanger.OpenCom();
+
+            CoinChanger.PayoutCoin(CC6100MDB_CADScalingFactors.Nickels);
+            CoinChanger.PayoutCoin(CC6100MDB_CADScalingFactors.Dimes);
+            CoinChanger.PayoutCoin(CC6100MDB_CADScalingFactors.Quarters);
+            CoinChanger.PayoutCoin(CC6100MDB_CADScalingFactors.Loonies);
+            CoinChanger.PayoutCoin(CC6100MDB_CADScalingFactors.Toonies);
             #endregion
 
             Console.ReadKey();

@@ -1,0 +1,38 @@
+﻿namespace CoinChanger_MDBRS232_For_CC6100.MDBEnums
+{
+    enum CC6100MDB_DeviceAddresses : byte
+    {
+        DeviceAddressesCommandMask = 0x07,
+        Reserved = 0x00,
+        CoinChanger = 0x08,
+        CashlessDevice1 = 0x010,
+        CommunictionsGateway = 0x18,
+        Display = 0x28,
+        EnergyManagementSystem = 0x30,
+        BillValidator = 0x38,
+        UniversalSatelliteDevice1 = 0x40,
+        UniversalSatelliteDevice2 = 0x48,
+        UniversalSatelliteDevice3 = 0x50,
+        CoinHopperOrTubeDispenser1 = 0x58,
+        CashlessDevice2 = 0x60,
+        AgeVerificationDevice = 0x68,
+        CoinHopperOrTubeDispenser2 = 0x70,
+        ReservedForFutureStandardPeripherals1 = 0x78,
+        ReservedForFutureStandardPeripherals2 = 0x80,
+        ReservedForFutureStandardPeripherals3 = 0x88,
+        ReservedForFutureStandardPeripherals4 = 0x90,
+        ReservedForFutureStandardPeripherals5 = 0x98,
+        ReservedForFutureStandardPeripherals6 = 0xA0,
+        ReservedForFutureStandardPeripherals7 = 0xA8,
+        ReservedForFutureStandardPeripherals8 = 0xB0,
+        ReservedForFutureStandardPeripherals9 = 0xB8,
+        ReservedForFutureStandardPeripherals10 = 0xC0,
+        ReservedForFutureStandardPeripherals11 = 0xC8,
+        ReservedForFutureStandardPeripherals12 = 0xD0,
+        ReservedForFutureStandardPeripherals13 = 0xD8,
+        ExperimentalPeripheral1 = 0xE0,
+        ExperimentalPeripheral2 = 0xE8,
+        VendingMachineSpecificPeripheral1 = 0xF0,
+        VendingMachineSpecificPeripheral2 = 0xF8,
+    }
+}
