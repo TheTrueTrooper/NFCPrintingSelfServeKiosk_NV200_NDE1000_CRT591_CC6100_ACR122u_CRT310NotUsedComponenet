@@ -110,7 +110,7 @@ namespace BillDispenser_NDE1000
         /// <param name="DataToClear"></param>
         public void ClearData(NDE1000_ClearData DataToClear)
         {
-            SendCommand((byte)Commands.DispenseNotes, new byte[] { 0x30, 0x30, 0x30, (byte)DataToClear });
+            SendCommand((byte)Commands.ClearData, new byte[] { 0x30, 0x30, 0x30, (byte)DataToClear });
         }
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace BillDispenser_NDE1000
                 Data[0] = 0x31;
             if (LockClearKey)
                 Data[2] = 0x31;
-            SendCommand((byte)Commands.DispenseNotes, Data);
+            SendCommand((byte)Commands.DisableEnableSwitches, Data);
         }
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace BillDispenser_NDE1000
         public NDE1000_StatusReturn GetStatus()
         {
             //byte[] Answer = SendCommand((byte)Commands.DispenseNotes);
-            SendCommand((byte)Commands.DispenseNotes);
+            SendCommand((byte)Commands.GetStatus);
             byte[] Answer = new byte[10];
             for (int i = 0; i < Answer.Length; i++)
                 Answer[i] = (byte)ComPort.ReadByte();
@@ -151,7 +151,7 @@ namespace BillDispenser_NDE1000
         public NDE1000_DispensalCheckReturn CheckDispensalStatus()
         {
             //byte[] Answer = SendCommand((byte)Commands.DispenseNotes);
-            SendCommand((byte)Commands.DispenseNotes);
+            SendCommand((byte)Commands.GetStatus);
             byte[] Answer = new byte[10];
             for (int i = 0; i < Answer.Length; i++)
                 Answer[i] = (byte)ComPort.ReadByte();
