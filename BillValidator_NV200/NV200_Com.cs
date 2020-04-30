@@ -6,8 +6,10 @@ using ITLlib;
 
 namespace BillValidator_NV200
 {
-    public class NV200_Com
+    public class NV200_Com : IDisposable
     {
+        bool Disposed = false;
+
         const string CommandHasFailedError = "The {0} Command has failed with code {1}.";
 
         const byte ProtocolVers = 0x07;
@@ -523,6 +525,20 @@ namespace BillValidator_NV200
             Array.Copy(CurrentCommand.ResponseData, 0, Return, 0, CurrentCommand.ResponseDataLength);
             this.CInfo = CInfo;
             return Return;
+        }
+
+        public void Dispose()
+        {
+            if (!Disposed)
+            {
+                Disposed = true;
+                this.ComManager.CloseComPort();
+            }
+        }
+
+        ~NV200_Com()
+        {
+            Dispose();
         }
     }
 }

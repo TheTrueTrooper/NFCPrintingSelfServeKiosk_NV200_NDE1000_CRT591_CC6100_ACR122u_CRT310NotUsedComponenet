@@ -1,6 +1,6 @@
 C:\Users\Angelo's Tower PC\Desktop\CardReader_CRT591\CardReader_CRT591\BillDispenser_NDE1000\bin\Debug\BillDispenser_NDE1000.dll
 C:\Users\Angelo's Tower PC\Desktop\CardReader_CRT591\CardReader_CRT591\BillDispenser_NDE1000\bin\Debug\BillDispenser_NDE1000.pdb
-C:\Users\Angelo's Tower PC\Desktop\CardReader_CRT591\CardReader_CRT591\BillDispenser_NDE1000\obj\Debug\BillDispenser_NDE1000.csprojAssemblyReference.cache
 C:\Users\Angelo's Tower PC\Desktop\CardReader_CRT591\CardReader_CRT591\BillDispenser_NDE1000\obj\Debug\BillDispenser_NDE1000.csproj.CoreCompileInputs.cache
 C:\Users\Angelo's Tower PC\Desktop\CardReader_CRT591\CardReader_CRT591\BillDispenser_NDE1000\obj\Debug\BillDispenser_NDE1000.dll
 C:\Users\Angelo's Tower PC\Desktop\CardReader_CRT591\CardReader_CRT591\BillDispenser_NDE1000\obj\Debug\BillDispenser_NDE1000.pdb
+C:\Users\Angelo's Tower PC\Desktop\CardReader_CRT591\CardReader_CRT591\BillDispenser_NDE1000\obj\Debug\BillDispenser_NDE1000.csprojAssemblyReference.cache

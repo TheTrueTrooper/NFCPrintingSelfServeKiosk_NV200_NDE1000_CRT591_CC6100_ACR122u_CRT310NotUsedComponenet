@@ -4,8 +4,10 @@ using System.IO.Ports;
 
 namespace BillDispenser_NDE1000
 {
-    public class NDE1000_Com
+    public class NDE1000_Com : IDisposable
     {
+        bool Disposed = false;
+
         enum Commands : byte
         {
             DispenseNotes = (byte)'B',
@@ -186,5 +188,18 @@ namespace BillDispenser_NDE1000
             return new DateTime(Year, Month, Day, Hour, Minute, Second);
         }
 
+        public void Dispose()
+        {
+            if(!Disposed)
+            {
+                Disposed = true;
+                ComPort.Dispose();
+            }
+        }
+
+        ~NDE1000_Com()
+        {
+            Dispose();
+        }
     }
 }

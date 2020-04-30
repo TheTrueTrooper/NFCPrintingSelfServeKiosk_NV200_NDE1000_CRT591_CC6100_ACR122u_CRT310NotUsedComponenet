@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CoinChanger_MDBRS232_For_CC6100
 {
-    public class CC6100MDB_Com
+    public class CC6100MDB_Com : IDisposable
     {
 #if DEBUG
         public const int BaudRate /*= 192000;*/ = 9600; /*= 57600;*/ /*= 38400;*/
@@ -71,12 +71,12 @@ namespace CoinChanger_MDBRS232_For_CC6100
             if (FirstByte == (byte)CC6100MDB_Responses.NACK)
                 throw new Exception("Error!");
 
-            switch ((CC6100MDB_DeviceAddresses)FirstByte)
-            {
-                case CC6100MDB_DeviceAddresses.CoinChanger:
-                    if()
-                    return;
-            }
+            //switch ((CC6100MDB_DeviceAddresses)FirstByte)
+            //{
+            //    case CC6100MDB_DeviceAddresses.CoinChanger:
+            //        if ()
+            //            return;
+            //}
 
         }
 
@@ -91,7 +91,7 @@ namespace CoinChanger_MDBRS232_For_CC6100
         /// <summary>
         /// Paysoutcoin
         /// </summary>
-        /// <param name="Amount"></param>
+        /// <param name="Amount">the single coin that you wish to pay out</param>
         /// <returns></returns>
         public void PayoutCoin(CC6100MDB_CADScalingFactors Amount)
         {
@@ -104,6 +104,32 @@ namespace CoinChanger_MDBRS232_For_CC6100
             SerialPort.Write(Command, 0, Command.Length);
         }
 
-        
+        /// <summary>
+        /// Paysoutcoin
+        /// </summary>
+        /// <param name="Amount">the total amount that you wish to pay out</param>
+        /// <returns></returns>
+        public void PayoutCoin(byte Amount)
+        {
+            byte[] Command = new byte[3]; //new byte[4];
+            Command[0] = (byte)CC6100MDB_Commands.CCExpansionCommand;
+            Command[1] = (byte)CC6100MDB_CCExpansionCommands.Payout;
+            Command[2] = Amount;
+            //Command[3] = (byte)(Command[1] + Command[2]); when working with the test doc the check sum doesnt seem to work. May have been dropped and docs may be old
+            //Command[3] = 0xFF;
+            SerialPort.Write(Command, 0, Command.Length);
+        }
+
+        public void Dispose()
+        {
+            if(!Disposed)
+                SerialPort.Dispose();
+        }
+
+        ~CC6100MDB_Com()
+        {
+            if (!Disposed)
+                SerialPort.Dispose();
+        }
     }
 }
