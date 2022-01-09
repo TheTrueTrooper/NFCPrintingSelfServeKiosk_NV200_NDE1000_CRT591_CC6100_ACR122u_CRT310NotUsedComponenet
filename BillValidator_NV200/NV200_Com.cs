@@ -85,31 +85,6 @@ namespace BillValidator_NV200
             //Sync [11] untill OK [F0] 
         }
 
-        //set vers [06] [07]
-        //Get Firmware Version [20] OK, NV02004141498000  [F0] [4E 56 30 32 30 30 34 31 34 31 34 39 38 30 30 30] 
-        //Get DatasetVers Get Dataset Version [21] OK, EUR01609  [F0] [45 55 52 30 31 36 30 39]  EUR Euro Country code (ISO 4217) 01 1 Arrangement of dataset, each code has different notes or channel arrangements. See website for details. 6 NV200 Product code for dataset 09 v9 Version number, increased if notes are added, withdrawn or updated. 
-        #region SETUP AND ENABLE VALIDATOR
-        //Host Protocol Version [06] [06] OK [F0] 
-        //Setup Request [05] OK & Setup Data [F0] [00 30 33 33 35 45 55 52 00 00 01 04 05 0A 14 32  02 02 02 02 00 00 64 06 45 55 52 45 55 52  45 55 52 45 55 52  05 00 00 00  0A 00 00 00  14 00 00 00   32 00 00 00]00 = Unit Type (Note Validator) 30 33 33 33 = Firmware (3.33) 45 55 52 = Country Code (EUR) 00 00 01 = Value Multiplier (1) 04 = Number of channels (4) 05 0A 14 32 = Channel Value for  older protocol version – ignore for v6.  02 02 02 02 = Channel Security for  older protocol version – ignore for v6 00 00 64 = Real Value Multiplier(100) 06 = Protocol Version(6) 45 55 52 (repeated x 4) = Currency Code for each channel(EUR) 05 00 00 00 = Value of Ch1(5) 0A 00 00 00 = Value of Ch2(10) 14 00 00 00 = Value of Ch3(20) 32 00 00 00 = Value of Ch4(50)
-        //Request Serial Number[0C] OK, & Serial [F0] [00 29 8A A6] 
-        //Poll [07] OK, Reset & Disabled [F0] [F1 E8]
-        //Set Inhibits [02] [FF FF] OK [F0] 
-        //Enable [0A] OK [F0] 
-        #endregion
-        #region ACCEPT NOTE 
-        //Poll[07] OK [F0] 
-        //Poll [07] OK & Read Ch 0 [F0] [EF 00] 
-        //Poll [07] OK & Note Read Ch 3 [F0] [EF 03] 
-        //Hold [18]  OK [F0] //holds for 5 seconds. 0x07 – Poll – Accept Note  0x18 – Hold – Keep the note in escrow position (for 5 seconds longer) 0x08 – Reject – Return the note to the bezel 
-        //Poll (Accept) [07]  OK & Stacking [F0] [CC] 
-        //Poll[07] OK, Credit Ch. 3 & Stacking  [F0] [EE 03 CC] 
-        //Poll [07] OK & Stacking [F0] [CC] 
-        //Poll [07] OK & Stacked [F0] [EB]
-        //Poll [07] OK [F0]
-        #endregion
-        //OK, Safe Jam & Disabled [F0] [EA E8] 
-        //OK & Cashbox Full [F0] [E7] 
-
         /// <summary>
         /// Goes through the entire set up proccess
         /// </summary>
@@ -219,7 +194,7 @@ namespace BillValidator_NV200
         /// syncs the baud rates to eachother call in in it
         /// </summary>
         /// <returns>if the call was successfull</returns>
-        NV200_Responses Sync()
+        public NV200_Responses Sync()
         {
             NV200_Commands Command = NV200_Commands.SSP_CMD_SYNC;
             byte[] RawReturn = SendCommand((byte)Command, new byte[0]);
@@ -305,7 +280,7 @@ namespace BillValidator_NV200
         /// durring a bill being recived it holds it in the system and prevents it from being taken in
         /// </summary>
         /// <returns>if the call was successfull</returns>
-        NV200_Responses HoldBankNote()
+        public NV200_Responses HoldBankNote()
         {
             NV200_Commands Command = NV200_Commands.SSP_CMD_HOLD;
             byte[] RawReturn = SendCommand((byte)Command, new byte[0]);
